@@ -1,4 +1,4 @@
-package com.clinica.serviceImpl;
+package com.clinica.serviceimpl;
 
 import com.clinica.dao.ClienteDao;
 import com.clinica.domain.Cliente;
@@ -15,21 +15,27 @@ public class ClienteServiceImpl implements ClienteService {
     private ClienteDao clienteDao;
 
     @Override
-    @Transactional(readOnly = true)  // Solo lectura, no modifica la base de datos
-    public List<Cliente> obtenerTodosLosClientes() {
-        return clienteDao.findAll();  // Obtiene todos los clientes
+    @Transactional(readOnly = true)
+    public List<Cliente> getClientes(boolean activos) {
+        // Si no necesitas filtrar por un campo "activo", puedes devolver la lista tal cual.
+        return clienteDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Cliente getCliente(Cliente cliente) {
+        return clienteDao.findById(cliente.getId()).orElse(null);
     }
 
     @Override
     @Transactional
-    public void guardarCliente(Cliente cliente) {
-        clienteDao.save(cliente);  // Guarda o actualiza el cliente
+    public void save(Cliente cliente) {
+        clienteDao.save(cliente);
     }
 
     @Override
     @Transactional
-    public void registrarCliente(Cliente cliente) {
-        // Puedes agregar lógica adicional si es necesario
-        clienteDao.save(cliente);  // Guarda el cliente
+    public void delete(Cliente cliente) {
+        clienteDao.delete(cliente);
     }
 }
