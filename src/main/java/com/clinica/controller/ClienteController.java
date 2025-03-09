@@ -22,65 +22,43 @@ public class ClienteController {
 
     private ClienteService clienteService;
 
-    @Autowired
-
     @GetMapping("/listado")
-
     public String listado(Model model) {
-
         List<Cliente> clientes = clienteService.getClientes(false);  // Cambia el método si es necesario
-
         model.addAttribute("clientes", clientes);
-
         model.addAttribute("totalClientes", clientes.size());
-
         return "/cliente/listado";  // Ruta donde se mostrarán los clientes
-
     }
 
     @GetMapping("/nuevo")
 
     public String clienteNuevo(Cliente cliente) {
-
         return "/cliente/modifica";  // Ruta para el formulario de creación
-
     }
 
     @PostMapping("/guardar")
-
     public String clienteGuardar(Cliente cliente,
             @RequestParam("imagenFile") MultipartFile imagenFile) {
-
         if (!imagenFile.isEmpty()) {
-
             clienteService.save(cliente);
-
         }
 
         clienteService.save(cliente);
-
         return "redirect:/cliente/listado";  // Redirige al listado de clientes
 
     }
 
     @GetMapping("/eliminar/{idCliente}")
-
     public String clienteEliminar(Cliente cliente) {
-
         clienteService.delete(cliente);
-
         return "redirect:/cliente/listado";  // Redirige al listado después de eliminar
 
     }
 
     @GetMapping("/modificar/{idCliente}")
-
     public String clienteModificar(Cliente cliente, Model model) {
-
         cliente = clienteService.getCliente(cliente);
-
         model.addAttribute("cliente", cliente);
-
         return "/cliente/modifica";  // Ruta para el formulario de modificación
 
     }

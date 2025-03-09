@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Modificar Cliente</title>
-</head>
-<body>
-    <h2>Modificar Cliente</h2>
-    <!-- Formulario para modificar datos del cliente -->
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/plantilla :: head"></head>
+    <body>
+        <header th:replace="layout/plantilla :: header"></header>
+        <section th:replace="cliente/fragmentos :: editarCliente"/>
+        <footer th:replace="layout/plantilla :: footer"></footer>
+    </body>
 </html>

@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="layout/plantilla :: head"></head>
     <body>
-        <!-- El encabezado se reemplaza por el fragmento en plantilla -->
         <header th:replace="layout/plantilla :: header"></header>
-
-        <!-- Contenido principal de la página -->
-        <main>
-            <h2>Bienvenido a clinica Vida Sana</h2>
-            <p>.</p>
-        </main>
-
-        <!-- El pie de página se reemplaza por el fragmento en plantilla -->
+        <div class="container">
+            <h1>Bienvenido a la Clínica</h1>
+            <!-- Aquí puedes agregar contenido específico para la página de inicio -->
+        </div>
         <footer th:replace="layout/plantilla :: footer"></footer>
     </body>
 </html>
