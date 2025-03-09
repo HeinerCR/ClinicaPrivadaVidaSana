@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Página Principal - Clínica</title>
+</head>
+<body>
+    <div th:replace="layout/plantilla :: body">
+        <h2>Bienvenido a nuestra Clínica</h2>
+        <p>Accede a nuestros servicios médicos y mantén tu salud al día.</p>
+        <p><a href="/clientes/registrar">Registrar un nuevo cliente</a></p>
+        <p><a href="/clientes">Ver clientes registrados</a></p>
+        <p><a href="/citas/registrar">Solicitar una nueva cita</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clínica - @title</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a la Clínica Privada</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/clientes/registrar">Registrar Cliente</a></li>
+                <li><a href="/citas/registrar">Registrar Cita</a></li>
+                <li><a href="/clientes">Ver Clientes</a></li>
+                <li><a href="/citas">Ver Citas</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div th:replace="${body}"></div>
+
+    <footer>
+        <p>&copy; 2025 Clínica Privada. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
