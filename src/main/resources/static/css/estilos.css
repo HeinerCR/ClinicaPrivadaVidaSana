@@ -3,12 +3,12 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
+    background-color: aquamarine;
 }
 
 /* Header */
 header {
-    background-color: #4CAF50;
+    background-color: activecaption;
     padding: 20px;
     color: white;
     text-align: center;
