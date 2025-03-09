@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Clínica Privada</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
     <header>
         <h1>Bienvenido a la Clínica Privada</h1>
         <nav>
             <ul>
-                <li><a href="/">Inicio</a></li>
-                <li><a href="/clientes/registrar">Registrar Cliente</a></li>
-                <li><a href="/citas/registrar">Registrar Cita</a></li>
-                <li><a href="/clientes">Ver Clientes</a></li>
-                <li><a href="/citas">Ver Citas</a></li>
+                <li><a th:href="@{/}">Inicio</a></li>
+                <li><a th:href="@{/clientes/registrar}">Registrar Cliente</a></li>
+                <li><a th:href="@{/citas/registrar}">Registrar Cita</a></li>
+                <li><a th:href="@{/clientes}">Ver Clientes</a></li>
+                <li><a th:href="@{/citas}">Ver Citas</a></li>
             </ul>
         </nav>
     </header>
+
+    <main>
+        <div th:fragment="content">
+            <!-- Aquí se insertará el contenido dinámico -->
+        </div>
+    </main>
 
     <footer>
         <p>&copy; 2025 Clínica Privada. Todos los derechos reservados.</p>
