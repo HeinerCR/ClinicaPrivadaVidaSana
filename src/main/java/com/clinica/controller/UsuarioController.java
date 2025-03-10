@@ -25,8 +25,7 @@ public class UsuarioController {
 
     @GetMapping("/listado")
     public String listado(Model model) {
-        List<Usuario> usuarios = usuarioService.getUsuarios();  // No se necesita el parámetro activos
-        System.out.println(usuarios);  // Depuración
+        List<Usuario> usuarios = usuarioService.getUsuarios();
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("totalUsuarios", usuarios.size());
         return "/usuario/listado";  // Ruta donde se mostrarán los usuarios
@@ -39,19 +38,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/guardar")
-    public String usuarioGuardar(@ModelAttribute Usuario usuario, BindingResult result) {
-        // Verifica si la validación del formulario tiene errores
-        if (result.hasErrors()) {
-            return "/usuario/listado"; // Devuelve el formulario con los errores
-        }
-
-        // Verifica que la contraseña no sea nula ni vacía
-        if (usuario.getContrasena() == null || usuario.getContrasena().isEmpty()) {
-            // Agrega un error al modelo si la contraseña está vacía
-            result.rejectValue("contrasena", "error.usuario", "La contraseña es obligatoria");
-            return "/usuario/listado"; // Devuelve el formulario con el error
-        }
-
+    public String usuarioGuardar(Usuario usuario) {
         // Guarda el usuario si todo está correcto
         usuarioService.save(usuario);
         return "redirect:/usuario/listado"; // Redirige al listado de usuarios
