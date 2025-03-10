@@ -1,20 +1,20 @@
 package com.clinica.service;
  
 import java.util.List;
- import com.clinica.domain.Cliente;
+ import com.clinica.domain.Usuario;
 
-public interface ClienteService {
+public interface UsuarioService {
  
     // Se obtiene un listado de usuarios en un List
-    public List<Cliente> getClientes(boolean activos);
+    public List<Usuario> getUsuarios(boolean activos);
  
-    // Se obtiene un Cliente, a partir del id de un usuario
-    public Cliente getCliente(Cliente usuario);
+    // Se obtiene un Usuario, a partir del id de un usuario
+    public Usuario getUsuario(Usuario usuario);
  
     // Se inserta un nuevo usuario si el id del usuario está vacío
     // Se actualiza un usuario si el id del usuario NO está vacío
-    public void save(Cliente usuario);
+    public void save(Usuario usuario);
  
     // Se elimina el usuario que tiene el id pasado por parámetro
-    public void delete(Cliente usuario);
+    public void delete(Usuario usuario);
 }

@@ -6,8 +6,8 @@ import jakarta.persistence.*;
  
 @Data
 @Entity
-@Table(name = "usuarios")
-public class Cliente implements Serializable {
+@Table(name = "usuario")
+public class Usuario implements Serializable {
  
     private static final long serialVersionUID = 1L;
  
@@ -39,13 +39,13 @@ public class Cliente implements Serializable {
     private TipoUsuario tipo; // Usamos un enum para el tipo de usuario
  
     public enum TipoUsuario {
-        CLIENTE, CLINICA
+        Cliente, Medico
     }
  
-    public Cliente() {
+    public Usuario() {
     }
  
-    public Cliente(String nombre, Integer edad, String cedula, String correo, String contrasena, String telefono, TipoUsuario tipo) {
+    public Usuario(String nombre, Integer edad, String cedula, String correo, String contrasena, String telefono, TipoUsuario tipo) {
         this.nombre = nombre;
         this.edad = edad;
         this.cedula = cedula;
