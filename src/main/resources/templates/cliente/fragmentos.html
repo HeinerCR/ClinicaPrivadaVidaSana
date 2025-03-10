@@ -14,44 +14,53 @@
                             type="button" 
                             class="btn btn-primary btn-block" 
                             data-bs-toggle="modal" 
-                            data-bs-target="#agregarCliente">
-                            <i class="fas fa-plus"></i> [[#{cliente.agregar}]]
+                            data-bs-target="#agregarUsuario">
+                            <i class="fas fa-plus"></i> [[#{usuarios.agregar}]]
                         </button>
                     </div>
                 </div>
             </div>
         </section>
-        <section th:fragment="agregarCliente">
-            <div id="agregarCliente" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <section th:fragment="agregarUsuario">
+            <div id="agregarUsuario" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
-                            <h5 class="modal-title">[[#{cliente.agregar}]]</h5>
+                            <h5 class="modal-title">[[#{usuarios.agregar}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div> 
-                        <form th:action="@{/cliente/guardar}" th:object="${cliente}" method="POST" class="was-validated" enctype="multipart/form-data">
+                        <form th:action="@{/usuarios/guardar}" th:object="${usuarios}" method="POST" class="was-validated" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="nombre">[[#{cliente.nombre}]]</label>
+                                    <label for="nombre">[[#{usuarios.nombre}]]</label>
                                     <input type="text" class="form-control" name="nombre" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cedula">[[#{cliente.cedula}]]</label>
+                                    <label for="edad">[[#{usuarios.edad}]]</label>
+                                    <input type="text" class="form-control" name="edad" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cedula">[[#{usuarios.cedula}]]</label>
                                     <input type="text" class="form-control" name="cedula" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="correo">[[#{cliente.correo}]]</label>
+                                    <label for="correo">[[#{usuarios.correo}]]</label>
                                     <input type="email" class="form-control" name="correo" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="telefono">[[#{cliente.telefono}]]</label>
-                                    <input type="text" class="form-control" name="telefono"/>
+                                    <label for="contraseña">[[#{usuarios.contrasena}]]</label>
+                                    <input type="text" class="form-control" name="contraseña"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="tipo">[[#{cliente.tipo}]]</label>
+                                    <label for="telefono">[[#{usuarios.telefono}]]</label>
+                                    <input type="text" class="form-control" name="telefono"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="tipo">[[#{usuarios.tipo}]]</label>
                                     <select class="form-control" name="tipo">
                                         <option value="Cliente">Cliente</option>
-                                        <option value="Clinica">Clinica</option>
+                                        <option value="Medico">Medico</option>
                                     </select>
                                 </div>
                             </div>
@@ -63,38 +72,44 @@
                 </div>
             </div>
         </section>
-        <section th:fragment="listadoClientes" id="clientes">
+        <section th:fragment="listadoClientes" id="usuarios">
             <div class="container">
                 <div class="row">
                     <div class="col-md-9">
                         <div class="card">
                             <div class="card-header">
-                                <h4>[[#{cliente.listado}]]</h4>
+                                <h4>[[#{usuarios.listado}]]</h4>
                             </div>
-                            <div th:if="${clientes != null and !clientes.empty}">
+                            <div th:if="${usuarios != null and !usuarios.empty}">
                                 <table class="table table-striped table-hover">
                                     <thead class="table-dark">
                                         <tr><th>#</th>
-                                            <th>[[#{cliente.nombre}]]</th>
-                                            <th>[[#{cliente.cedula}]]</th>
-                                            <th>[[#{cliente.tipo}]]</th>
+                                            <th>[[#{usuarios.nombre}]]</th>
+                                            <th>[[#{usuarios.edad}]]</th>
+                                            <th>[[#{usuarios.cedula}]]</th>
+                                            <th>[[#{usuarios.correo}]]</th>
+                                            <th>[[#{usuarios.tipo}]]</th>
+                                            <th>[[#{usuarios.telefono}]]</th>
                                             <th></th></tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="cliente, contador : ${clientes}">
+                                        <tr th:each="usuarios, contador : ${usuarioss}">
                                             <td>[[${contador.count}]]</td>
-                                            <td>[[${cliente.nombre}]]</td>
-                                            <td>[[${cliente.cedula}]]</td>
-                                            <td>[[${cliente.tipo}]]</td>
-                                            <td><a th:href="@{/cliente/eliminar/}+${cliente.id}" class="btn btn-danger">
+                                            <th>[[#{usuarios.nombre}]]</th>
+                                            <th>[[#{usuarios.edad}]]</th>
+                                            <th>[[#{usuarios.cedula}]]</th>
+                                            <th>[[#{usuarios.correo}]]</th>
+                                            <th>[[#{usuarios.tipo}]]</th>
+                                            <th>[[#{usuarios.telefono}]]</th>
+                                            <td><a th:href="@{/usuarios/eliminar/}+${usuarios.id}" class="btn btn-danger">
                                                     <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
-                                                <a th:href="@{/cliente/modificar/}+${cliente.id}" class="btn btn-success">
+                                                <a th:href="@{/usuarios/modificar/}+${usuarios.id}" class="btn btn-success">
                                                     <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="text-center p-2" th:if="${clientes == null or clientes.empty}">
+                            <div class="text-center p-2" th:if="${usuarios == null or usuarios.empty}">
                                 <span>[[#{lista.vacia}]]</span>
                             </div>
                         </div>
@@ -102,21 +117,21 @@
                     <div class="col-md-3">
                         <div class="card text-center bg-primary text-white mb-3">
                             <div class="card-body">
-                                <h3>[[#{cliente.total}]]</h3>
-                                <h4 class="fs-2"><i class="fas fa-users"></i> [[${totalClientes}]]</h4>
+                                <h3>[[#{usuarios.total}]]</h3>
+                                <h4 class="fs-2"><i class="fas fa-users"></i> [[${totalUsuarios}]]</h4>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section th:fragment="editarCliente">
+        <section th:fragment="editarUsuario">
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <form method="POST" th:action="@{/cliente/guardar}" th:object="${cliente}" class="was-validated" enctype="multipart/form-data">
+                    <form method="POST" th:action="@{/usuarios/guardar}" th:object="${usuarios}" class="was-validated" enctype="multipart/form-data">
                         <input type="hidden" name="id" th:field="*{id}"/>
-                        <section th:replace="~{cliente/fragmentos :: botonesEditar}"/>
+                        <section th:replace="~{usuarios/fragmentos :: botonesEditar}"/>
                         <div class="container">
                             <div class="row">
                                 <div class="col">
@@ -126,26 +141,31 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="mb-3">
-                                                <label for="nombre">[[#{cliente.nombre}]]</label>
+                                                <label for="nombre">[[#{usuarios.nombre}]]</label>
                                                 <input type="text" class="form-control" name="nombre" th:field="*{nombre}" required="true"/>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="cedula">[[#{cliente.cedula}]]</label>
+                                                <label for="cedula">[[#{usuarios.cedula}]]</label>
                                                 <input type="text" class="form-control" name="cedula" th:field="*{cedula}" required="true"/>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="correo">[[#{cliente.correo}]]</label>
-                                                <input type="email" class="form-control" name="correo" th:field="*{correo}" required="true"/>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="telefono">[[#{cliente.telefono}]]</label>
+                                                <label for="telefono">[[#{usuarios.edad}]]</label>
                                                 <input type="text" class="form-control" name="telefono" th:field="*{telefono}"/>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="tipo">[[#{cliente.tipo}]]</label>
+                                                <label for="correo">[[#{usuarios.correo}]]</label>
+                                                <input type="email" class="form-control" name="correo" th:field="*{correo}" required="true"/>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="telefono">[[#{usuarios.telefono}]]</label>
+                                                <input type="text" class="form-control" name="telefono" th:field="*{telefono}"/>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="tipo">[[#{usuarios.tipo}]]</label>
                                                 <select class="form-control" name="tipo" th:field="*{tipo}">
                                                     <option value="Cliente">Cliente</option>
-                                                    <option value="Clinica">Clinica</option>
+                                                    <option value="Medico">Medico</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -161,17 +181,17 @@
             <div class="container py-4 mb-4 bg-light">
                 <div class="row">
                     <div class="col-md-4 d-grid">
-                        <a th:href="@{/cliente/listado}" class="btn btn-primary">
+                        <a th:href="@{/usuarios/listado}" class="btn btn-primary">
                             <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">
-                        <a th:href="@{/cliente/eliminar/}+${cliente.id}" class="btn btn-danger">
+                        <a th:href="@{/usuarios/eliminar/}+${usuarios.id}" class="btn btn-danger">
                             <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">
                         <button type="submit" class="btn btn-success">
-        </section>
-    </body>
-</html>
+                            </section>
+                            </body>
+                            </html>
