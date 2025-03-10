@@ -16,9 +16,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Usuario> getUsuarios(boolean activos) {
-        // Si no necesitas filtrar por un campo "activo", puedes devolver la lista tal cual.
-        return usuarioDao.findAll();
+    public List<Usuario> getUsuarios() {
+        return usuarioDao.findAll();  // Devuelve todos los usuarios
     }
 
     @Override

@@ -14,10 +14,4 @@ public class IndexController {
         model.addAttribute("attribute", "value");  // Si necesitas pasar algún atributo, puedes hacerlo aquí
         return "index";  // Redirige a la vista index.html
     }
-    // Ruta para la información
-    @RequestMapping("/informacion")
-    public String contacto(Model model) {
-        return "informacion";  // Redirige a la vista informacion.html
-    }
- 
 }

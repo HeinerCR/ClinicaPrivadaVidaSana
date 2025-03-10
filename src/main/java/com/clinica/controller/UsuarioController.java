@@ -3,6 +3,7 @@ package com.clinica.controller;
 import com.clinica.domain.Usuario;
 import com.clinica.service.UsuarioService;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-
+@Slf4j
 @RequestMapping("/usuario")
 
 public class UsuarioController {
@@ -26,7 +25,8 @@ public class UsuarioController {
 
     @GetMapping("/listado")
     public String listado(Model model) {
-        List<Usuario> usuarios = usuarioService.getUsuarios(false);  // Cambia el método si es necesario
+        List<Usuario> usuarios = usuarioService.getUsuarios();  // No se necesita el parámetro activos
+        System.out.println(usuarios);  // Depuración
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("totalUsuarios", usuarios.size());
         return "/usuario/listado";  // Ruta donde se mostrarán los usuarios
@@ -38,24 +38,24 @@ public class UsuarioController {
         return "/usuario/modifica";  // Ruta para el formulario de creación
     }
 
-@PostMapping("/guardar")
-public String usuarioGuardar(@ModelAttribute Usuario usuario, BindingResult result) {
-    // Verifica si la validación del formulario tiene errores
-    if (result.hasErrors()) {
-        return "/usuario/listado"; // Devuelve el formulario con los errores
-    }
+    @PostMapping("/guardar")
+    public String usuarioGuardar(@ModelAttribute Usuario usuario, BindingResult result) {
+        // Verifica si la validación del formulario tiene errores
+        if (result.hasErrors()) {
+            return "/usuario/listado"; // Devuelve el formulario con los errores
+        }
 
-    // Verifica que la contraseña no sea nula ni vacía
-    if (usuario.getContrasena() == null || usuario.getContrasena().isEmpty()) {
-        // Agrega un error al modelo si la contraseña está vacía
-        result.rejectValue("contrasena", "error.usuario", "La contraseña es obligatoria");
-        return "/usuario/listado"; // Devuelve el formulario con el error
-    }
+        // Verifica que la contraseña no sea nula ni vacía
+        if (usuario.getContrasena() == null || usuario.getContrasena().isEmpty()) {
+            // Agrega un error al modelo si la contraseña está vacía
+            result.rejectValue("contrasena", "error.usuario", "La contraseña es obligatoria");
+            return "/usuario/listado"; // Devuelve el formulario con el error
+        }
 
-    // Guarda el usuario si todo está correcto
-    usuarioService.save(usuario);
-    return "redirect:/usuario/listado"; // Redirige al listado de usuarios
-}
+        // Guarda el usuario si todo está correcto
+        usuarioService.save(usuario);
+        return "redirect:/usuario/listado"; // Redirige al listado de usuarios
+    }
 
     @GetMapping("/eliminar/{idUsuario}")
     public String usuarioEliminar(Usuario usuario) {
