@@ -7,20 +7,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Slf4j
 @RequestMapping("/usuario")
-
 public class UsuarioController {
 
     @Autowired
-
     private UsuarioService usuarioService;
 
     @GetMapping("/listado")
@@ -28,35 +25,33 @@ public class UsuarioController {
         List<Usuario> usuarios = usuarioService.getUsuarios();
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("totalUsuarios", usuarios.size());
-        return "/usuario/listado";  // Ruta donde se mostrarán los usuarios
+        return "/usuario/listado";
     }
 
     @GetMapping("/nuevo")
-
     public String usuarioNuevo(Usuario usuario) {
-        return "/usuario/modifica";  // Ruta para el formulario de creación
+        return "/usuario/modifica";
     }
 
     @PostMapping("/guardar")
     public String usuarioGuardar(Usuario usuario) {
-        // Guarda el usuario si todo está correcto
         usuarioService.save(usuario);
-        return "redirect:/usuario/listado"; // Redirige al listado de usuarios
+        return "redirect:/usuario/listado";
     }
 
     @GetMapping("/eliminar/{idUsuario}")
-    public String usuarioEliminar(Usuario usuario) {
-        usuarioService.delete(usuario);
-        return "redirect:/usuario/listado";  // Redirige al listado después de eliminar
-
+    public String usuarioEliminar(@PathVariable("idUsuario") Long idUsuario) {
+        usuarioService.delete(new Usuario(idUsuario));
+        return "redirect:/usuario/listado";
     }
 
     @GetMapping("/modificar/{idUsuario}")
-    public String usuarioModificar(Usuario usuario, Model model) {
-        usuario = usuarioService.getUsuario(usuario);
+    public String usuarioModificar(@PathVariable("idUsuario") Long idUsuario, Model model) {
+        Usuario usuario = usuarioService.getUsuarioById(idUsuario);
+        if (usuario == null) {
+            return "redirect:/usuario/listado";
+        }
         model.addAttribute("usuario", usuario);
-        return "/usuario/modifica";  // Ruta para el formulario de modificación
-
+        return "/usuario/modifica";
     }
-
 }

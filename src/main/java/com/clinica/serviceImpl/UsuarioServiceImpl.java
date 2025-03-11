@@ -17,13 +17,13 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     @Transactional(readOnly = true)
     public List<Usuario> getUsuarios() {
-        return usuarioDao.findAll();  // Devuelve todos los usuarios
+        return usuarioDao.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Usuario getUsuario(Usuario usuario) {
-        return usuarioDao.findById(usuario.getIdUsuario()).orElse(null);
+    public Usuario getUsuarioById(Long idUsuario) {
+        return usuarioDao.findById(idUsuario).orElse(null);
     }
 
     @Override

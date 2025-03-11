@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="layout/plantilla :: head"></head>
-    <body>
-        <header th:replace="layout/plantilla :: header"></header>
-        <section th:replace="usuario/fragmentos :: botonesAgregar"/>
-        <section th:replace="usuario/fragmentos :: listadoUsuarios"/>
-        <section th:replace="usuario/fragmentos :: agregarUsuario"/>
-        <footer th:replace="layout/plantilla :: footer"></footer>
-    </body>
+<head th:replace="layout/plantilla :: head"></head>
+<body>
+    <header th:replace="layout/plantilla :: header"></header>
+    <div class="container">
+        <h1>Listado de Usuarios</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.nombre}">Nombre del Usuario</td>
+                    <td th:text="${usuario.correo}">Correo del Usuario</td>
+                    <td th:text="${usuario.telefono}">Teléfono del Usuario</td>
+                    <td>
+                        <a th:href="@{/usuario/modificar/{id}(id=${usuario.idUsuario})}">Editar</a>
+                        <a th:href="@{/usuario/eliminar/{id}(id=${usuario.idUsuario})}">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/usuario/nuevo}" class="btn btn-primary">Agregar Usuario</a>
+    </div>
+    <footer th:replace="layout/plantilla :: footer"></footer>
+</body>
 </html>

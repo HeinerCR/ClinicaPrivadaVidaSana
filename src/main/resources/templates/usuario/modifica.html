@@ -4,7 +4,43 @@
     <head th:replace="layout/plantilla :: head"></head>
     <body>
         <header th:replace="layout/plantilla :: header"></header>
-        <section th:replace="usuario/fragmentos :: editarUsuario"/>
+        <div class="container">
+            <form method="POST" th:action="@{/usuario/guardar}" th:object="${usuario}" class="was-validated" enctype="multipart/form-data">
+                <input type="hidden" name="idUsuario" th:field="*{idUsuario}"/>
+                <div class="mb-3">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" th:field="*{nombre}" required=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="cedula">Número de Cédula</label>
+                    <input type="text" class="form-control" name="cedula" th:field="*{cedula}" required=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="edad">Edad</label>
+                    <input type="text" class="form-control" name="edad" th:field="*{edad}" required=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="correo">Correo Electrónico</label>
+                    <input type="email" class="form-control" name="correo" th:field="*{correo}" required=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" class="form-control" name="telefono" th:field="*{telefono}" required=""/>
+                </div>
+                <div class="mb-3">
+                    <label for="tipo">Tipo de Usuario</label>
+                    <select class="form-control" name="tipo" th:field="*{tipo}">
+                        <option value="Cliente">Cliente</option>
+                        <option value="Medico">Medico</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" class="form-control" name="contrasena" th:field="*{contrasena}" required=""/>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
         <footer th:replace="layout/plantilla :: footer"></footer>
     </body>
 </html>

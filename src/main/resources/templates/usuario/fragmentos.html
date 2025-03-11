@@ -84,7 +84,7 @@
                             <div th:if="${usuarios != null and !usuarios.empty}">
                                 <table class="table table-striped table-hover">
                                     <thead class="table-dark">
-                                            <tr><th>#</th>
+                                        <tr><th>#</th>
                                             <th>[[#{usuario.nombre}]]</th>
                                             <th>[[#{usuario.edad}]]</th>
                                             <th>[[#{usuario.cedula}]]</th>
@@ -124,13 +124,11 @@
                     </div>
                 </div>
             </div>
-
             <section th:fragment="editarUsuario">
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
-                        <form method="POST" th:action="@{/usuario/guardar}" 
-                              th:object="${usuario}" class="was-validated" enctype="multipart/form-data">
+                        <form method="POST" th:action="@{/usuario/guardar}" th:object="${usuario}" class="was-validated" enctype="multipart/form-data">
                             <input type="hidden" name="idUsuario" th:field="*{idUsuario}"/>
                             <section th:replace="~{usuario/fragmentos :: botonesEditar}"/>
                             <div class="container">
@@ -177,7 +175,6 @@
                     </div>
                 </div>
             </section>
-
             <section th:fragment="botonesEditar">
                 <div class="container py-4 mb-4 bg-light">
                     <div class="row">
