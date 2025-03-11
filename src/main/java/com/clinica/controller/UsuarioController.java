@@ -29,8 +29,9 @@ public class UsuarioController {
     }
 
     @GetMapping("/nuevo")
-    public String usuarioNuevo(Usuario usuario) {
-        return "/usuario/modifica";
+    public String usuarioNuevo(Model model) {
+        model.addAttribute("usuario", new Usuario());
+        return "/usuario/nuevo";
     }
 
     @PostMapping("/guardar")
