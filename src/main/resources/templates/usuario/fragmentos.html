@@ -97,6 +97,11 @@
                                         <tr th:each="usuario, contador : ${usuarios}">
                                             <td>[[${contador.count}]]</td>
                                             <td>[[${usuario.nombre}]]</td>
+                                            <td>[[${usuario.edad}]]</td>
+                                            <td>[[${usuario.cedula}]]</td>
+                                            <td>[[${usuario.correo}]]</td>
+                                            <td>[[${usuario.tipo}]]</td>
+                                            <td>[[${usuario.telefono}]]</td>
                                             <td>
                                                 <a th:href="@{/usuario/eliminar/{id}(id=${usuario.idUsuario})}" class="btn btn-danger">
                                                     <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
