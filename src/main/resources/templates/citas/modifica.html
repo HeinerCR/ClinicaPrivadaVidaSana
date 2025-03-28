@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Modificar Cita</title>
-</head>
+<!DOCTY<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/plantilla :: head"></head>
 <body>
-    <h2>Modificar Cita Médica</h2>
-    <!-- Formulario para modificar la cita -->
+    <header th:replace="layout/plantilla :: header"></header>
+    <div class="container">
+        <h1>Modificar Cita</h1>
+        <section th:replace="citas/fragmentos :: editarCita"/>
+    </div>
+    <footer th:replace="layout/plantilla :: footer"></footer>
 </body>
 </html>

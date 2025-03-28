@@ -1,13 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.clinica.service;
 
-/**
- *
- * @author Usuario
- */
-public class CitaService {
-    
+import java.util.List;
+import com.clinica.domain.Cita;
+
+public interface CitaService {
+
+    public List<Cita> getCitas();
+    public Cita getCitaById(Long idCita);
+    public void save(Cita cita);
+    public void delete(Cita cita);
 }
