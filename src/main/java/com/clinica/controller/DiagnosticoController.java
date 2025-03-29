@@ -2,7 +2,6 @@ package com.clinica.controller;
 
 import com.clinica.domain.Diagnostico;
 import com.clinica.service.DiagnosticoService;
-import com.clinica.service.UsuarioService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,9 +30,10 @@ public class DiagnosticoController {
     }
 
     @PostMapping("/guardar")
-    public String diagnosticoGuardar(Diagnostico diagnostico) {
-        diagnosticoService.save(diagnostico);
-        return "redirect:/diagnosticos/listado";
+    public String guardarDiagnostico(@ModelAttribute Diagnostico diagnostico) {
+
+        System.out.println("Diagnóstico guardado: " + diagnostico);
+        return "redirect:/diagnosticos/listado"; 
     }
 
     @GetMapping("/eliminar/{id}")

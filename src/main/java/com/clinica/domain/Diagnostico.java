@@ -2,7 +2,8 @@ package com.clinica.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "diagnosticos")
@@ -21,9 +22,8 @@ public class Diagnostico implements Serializable {
     private String descripcion;
 
     @Column(name = "fecha", nullable = false)
-    private LocalDateTime fecha;
+    private LocalDate fecha;
 
-    // Constructor vacío
     public Diagnostico() {
     }
 
@@ -57,11 +57,13 @@ public class Diagnostico implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public LocalDateTime getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
+
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
+
 }
