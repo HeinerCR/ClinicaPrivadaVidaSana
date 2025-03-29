@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Listado de Citas Médicas</title>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/plantilla :: head"></head>
 <body>
-    <h2>Listado de Citas Médicas</h2>
-    <!-- Aquí se incluiría la lógica de Thymeleaf para mostrar las citas médicas -->
+    <header th:replace="layout/plantilla :: header"></header>
+    <div class="container">
+        <h1>Listado de Diagnósticos</h1>
+        <section th:replace="diagnostico/fragmentos :: botonesAgregarDiagnostico"/>
+        <section th:replace="diagnostico/fragmentos :: listadoDiagnosticos"/>
+    </div>
+    <footer th:replace="layout/plantilla :: footer"></footer>
 </body>
 </html>
