@@ -2,6 +2,7 @@ package com.clinica.serviceimpl;
 
 import com.clinica.dao.DiagnosticoDao;
 import com.clinica.domain.Diagnostico;
+import com.clinica.domain.Usuario;
 import com.clinica.service.DiagnosticoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class DiagnosticoServiceImpl implements DiagnosticoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Diagnostico getDiagnosticoById(Long idDiagnostico) {
-        return diagnosticoDao.findById(idDiagnostico).orElse(null);
+    public Diagnostico getDiagnosticoById(Long id) {
+        return diagnosticoDao.findById(id).orElse(null);
     }
 
     @Override
@@ -36,5 +37,10 @@ public class DiagnosticoServiceImpl implements DiagnosticoService {
     @Transactional
     public void delete(Diagnostico diagnostico) {
         diagnosticoDao.delete(diagnostico);
+    }
+
+    @Override
+    public List<Usuario> getTodosUsuarios() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

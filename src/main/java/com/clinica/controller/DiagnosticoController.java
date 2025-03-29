@@ -2,6 +2,7 @@ package com.clinica.controller;
 
 import com.clinica.domain.Diagnostico;
 import com.clinica.service.DiagnosticoService;
+import com.clinica.service.UsuarioService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,7 @@ public class DiagnosticoController {
 
     @GetMapping("/nuevo")
     public String diagnosticoNuevo(Model model) {
-        model.addAttribute("diagnostico", new Diagnostico());
+        model.addAttribute("diagnostico", new Diagnostico()); // Inicia el objeto Diagnostico vacío
         return "/diagnosticos/nuevo";
     }
 
@@ -44,7 +45,10 @@ public class DiagnosticoController {
     @GetMapping("/modificar/{id}")
     public String diagnosticoModificar(@PathVariable("id") Long id, Model model) {
         Diagnostico diagnostico = diagnosticoService.getDiagnosticoById(id);
-        model.addAttribute("diagnostico", diagnostico);
+        if (diagnostico == null) {
+            return "redirect:/diagnosticos/listado";
+        }
+        model.addAttribute("diagnosticos", diagnostico);
         return "/diagnosticos/modificar";
     }
 }

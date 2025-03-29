@@ -1,95 +1,152 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Clinica</title>
+    </head>
     <body>
-        <!-- Fragmento: Botones Agregar -->
-        <section th:fragment="botonesAgregar">
-            <div class="py-4 mb-4 bg-light">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarDiagnostico">
-                    <i class="fas fa-plus"></i> Agregar Diagnóstico
-                </button>
-            </div>
-        </section>
-
-        <!-- Fragmento: Modal para agregar diagnóstico -->
-        <section th:fragment="agregarDiagnostico">
-            <div class="modal fade" id="agregarDiagnostico" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form th:action="@{/diagnosticos/guardar}" th:object="${diagnostico}" method="POST">
-                            <div class="modal-header">
-                                <h5>Agregar Diagnóstico</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="usuarioId">Usuario</label>
-                                    <input type="number" name="usuarioId" th:field="*{usuarioId}" class="form-control" placeholder="ID Usuario" required />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="descripcion">Descripción</label>
-                                    <textarea name="descripcion" th:field="*{descripcion}" class="form-control" placeholder="Descripción" required></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="fecha">Fecha</label>
-                                    <input type="datetime-local" name="fecha" th:field="*{fecha}" class="form-control" required />
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
-                            </div>
-                        </form>
+        <section th:fragment="botonesAgregar" class="py-4 mb-4" style="background-color: #e6f7f9; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                        <button
+                            type="button"
+                            class="btn btn-block"
+                            data-bs-toggle="modal"
+                            data-bs-target="#agregarDiagnostico"
+                            style="background-color: #57c4ad; color: white; border: none; border-radius: 8px; padding: 12px 20px; font-size: 16px; font-weight: bold; transition: background-color 0.3s;">
+                            <i class="fas fa-user-plus"></i> Agregar Diagnostico
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
+        <section th:fragment="listadoDiagnosticos" id="diagnostico">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card" style="border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                            <div class="card-header" style="background-color: #5bc0de; color: white; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                                <h4>[[#{diagnostico.listado}]]</h4>
+                            </div>
+                            <div th:if="${diagnosticos != null and !diagnosticos.empty}" style="background-color: #f3f7fc;">
+                                <table class="table table-striped table-hover" style="border-radius: 8px; overflow: hidden;">
+                                    <thead style="background-color: #57c4ad; color: white;">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>[[#{diagnostico.diagnosticoo}]]</th>
+                                            <th>[[#{diagnostico.descripcion}]]</th>
+                                            <th>[[#{diagnostico.fecha}]]</th>    
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="diagnostico, contador : ${diagnosticos}" style="transition: background-color 0.3s;">
+                                            <td>[[${contador.count}]]</td>
+                                            <td>[[${diagnostico.diagnostico}]]</td>
+                                            <td>[[${diagnostico.descipcion}]]</td>
+                                            <td>[[${diagnostico.fecha}]]</td>
 
-        <!-- Fragmento: Listado de diagnósticos -->
-        <section th:fragment="listadoDiagnosticos">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Usuario</th>
-                        <th>Descripción</th>
-                        <th>Fecha</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="diagnostico, count : ${diagnosticos}">
-                        <td th:text="${count.index + 1}"></td>
-                        <td th:text="${diagnostico.usuarioId}"></td>
-                        <td th:text="${diagnostico.descripcion}"></td>
-                        <td th:text="${#dates.format(diagnostico.fecha, 'dd/MM/yyyy HH:mm')}"></td>
-                        <td>
-                            <a th:href="@{/diagnosticos/modificar/{id}(id=${diagnostico.id})}" class="btn btn-warning btn-sm">Modificar</a>
-                            <a th:href="@{/diagnosticos/eliminar/{id}(id=${diagnostico.id})}" class="btn btn-danger btn-sm">Eliminar</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                                            <td>
+                                                <a th:href="@{/diagnostico/eliminar/{id}(id=${diagnostico.idDiagnostico})}" 
+                                                   class="btn btn-danger btn-sm" 
+                                                   style="border-radius: 5px; padding: 5px 10px;">
+                                                    <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                                                </a>
+                                                <a th:href="@{/diagnostico/modificar/{id}(id=${diagnostico.idDiagnostico})}" 
+                                                   class="btn btn-warning btn-sm text-white" 
+                                                   style="border-radius: 5px; padding: 5px 10px;">
+                                                    <i class="fas fa-pencil-alt"></i> [[#{accion.actualizar}]]
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-3" th:if="${diagnosticos == null or diagnosticos.empty}" style="background-color: #f9f9f9;">
+                                <span style="color: #6c757d;">[[#{lista.vacia}]]</span>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+            </div>
         </section>
-
-        <!-- Fragmento: Formulario para editar diagnóstico -->
-        <section th:fragment="editarDiagnostico">
-            <form th:action="@{/diagnosticos/guardar}" th:object="${diagnostico}" method="POST">
-                <input type="hidden" name="id" th:field="*{id}" />
-                <div class="mb-3">
-                    <label for="usuarioId">Usuario</label>
-                    <input type="number" name="usuarioId" th:field="*{usuarioId}" class="form-control" required />
+        <section th:fragment="agregarDiagnostico">
+            <div id="agregarDiagnostico" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title">[[#{diagnostico.agregar}]]</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form th:action="@{/diagnostico/guardar}" th:object="${diagnostico}" 
+                              method="POST" class="was-validated" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="usuario" class="form-label">
+                                        <i class="fas fa-user"></i> [[#{diagnostico.usuario}]]
+                                    </label>
+                                    <label for="tipo">[[#{diagnostico.usuario}]]</label>
+                                    <select class="form-control" name="tipo">
+                                        <option value="usuario">jose</option>
+                                    </select>
+                                </div>
+                                <input type="text" class="form-control" name="nombre" required="" 
+                                       style="background-color: #f5f5f5; border-radius: 8px; border: 1px solid #ccc;"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="edad" class="form-label">
+                                    <i class="fas fa-calendar-alt"></i> [[#{diagnostico.descripcion}]]
+                                </label>
+                                <input type="text" class="form-control" name="edad" required=""
+                                       style="background-color: #f5f5f5; border-radius: 8px; border: 1px solid #ccc;"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cedula" class="form-label">
+                                    <i class="fas fa-id-card"></i> [[#{diagnostico.fe}]]
+                                </label>
+                                <input type="text" class="form-control" name="cedula" required=""
+                                       style="background-color: #f5f5f5; border-radius: 8px; border: 1px solid #ccc;"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="correo" class="form-label">
+                                    <i class="fas fa-envelope"></i> [[#{diagnostico.correo}]]
+                                </label>
+                                <input type="email" class="form-control" name="correo" required=""
+                                       style="background-color: #f5f5f5; border-radius: 8px; border: 1px solid #ccc;"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contrasena" class="form-label">
+                                    <i class="fas fa-lock"></i> [[#{diagnostico.contrasena}]]
+                                </label>
+                                <input type="password" class="form-control" name="contrasena"
+                                       style="background-color: #f5f5f5; border-radius: 8px; border: 1px solid #ccc;"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefono" class="form-label">
+                                    <i class="fas fa-phone"></i> [[#{diagnostico.telefono}]]
+                                </label>
+                                <input type="text" class="form-control" name="telefono"
+                                       style="background-color: #f5f5f5; border-radius: 8px; border: 1px solid #ccc;"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tipo" class="form-label">
+                                    <i class="fas fa-user-tag"></i> [[#{diagnostico.tipo}]]
+                                </label>
+                                <select class="form-control" name="tipo" 
+                                        style="background-color: #f5f5f5; border-radius: 8px; border: 1px solid #ccc;">
+                                    <option value="Cliente">Cliente</option>
+                                    <option value="Medico">Medico</option>
+                                </select>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" style="border-radius: 8px;">Guardar</button>
+                    </div>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    <label for="descripcion">Descripción</label>
-                    <textarea name="descripcion" th:field="*{descripcion}" class="form-control" required></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="fecha">Fecha</label>
-                    <input type="datetime-local" name="fecha" th:field="*{fecha}" class="form-control" required />
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                </div>
-            </form>
+            </div>
+            </div>
         </section>
     </body>
 </html>

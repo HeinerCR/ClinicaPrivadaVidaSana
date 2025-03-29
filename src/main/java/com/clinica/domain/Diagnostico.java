@@ -1,11 +1,9 @@
 package com.clinica.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Data
 @Entity
 @Table(name = "diagnosticos")
 public class Diagnostico implements Serializable {
@@ -16,8 +14,8 @@ public class Diagnostico implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "usuario_id", nullable = false)
-    private Long usuarioId;
+    @Column(name = "idusuario", nullable = false)
+    private Long idUsuario;
 
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
@@ -25,11 +23,45 @@ public class Diagnostico implements Serializable {
     @Column(name = "fecha", nullable = false)
     private LocalDateTime fecha;
 
-    // Constructores
+    // Constructor vacío
     public Diagnostico() {
     }
 
+    // Constructor con ID
     public Diagnostico(Long id) {
         this.id = id;
+    }
+
+    // Getters y setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
     }
 }
