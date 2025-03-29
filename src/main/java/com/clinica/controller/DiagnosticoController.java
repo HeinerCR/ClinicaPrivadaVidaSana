@@ -1,17 +1,13 @@
+package com.clinica.controller;
 
 import com.clinica.domain.Diagnostico;
+import com.clinica.service.DiagnosticoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 @Controller
 @RequestMapping("/diagnosticos")
 public class DiagnosticoController {
@@ -19,10 +15,36 @@ public class DiagnosticoController {
     @Autowired
     private DiagnosticoService diagnosticoService;
 
-    @GetMapping("/{clienteId}")
-    public String listarDiagnosticos(@PathVariable("clienteId") int clienteId, Model model) {
-        List<Diagnostico> diagnosticos = diagnosticoService.obtenerDiagnosticosPorCliente(clienteId);
+    @GetMapping("/listado")
+    public String listado(Model model) {
+        List<Diagnostico> diagnosticos = diagnosticoService.getDiagnosticos();
         model.addAttribute("diagnosticos", diagnosticos);
-        return "listado-diagnosticos";
+        model.addAttribute("totalDiagnosticos", diagnosticos.size());
+        return "/diagnosticos/listado";
+    }
+
+    @GetMapping("/nuevo")
+    public String diagnosticoNuevo(Model model) {
+        model.addAttribute("diagnostico", new Diagnostico());
+        return "/diagnosticos/nuevo";
+    }
+
+    @PostMapping("/guardar")
+    public String diagnosticoGuardar(Diagnostico diagnostico) {
+        diagnosticoService.save(diagnostico);
+        return "redirect:/diagnosticos/listado";
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String diagnosticoEliminar(@PathVariable("id") Long id) {
+        diagnosticoService.delete(new Diagnostico(id));
+        return "redirect:/diagnosticos/listado";
+    }
+
+    @GetMapping("/modificar/{id}")
+    public String diagnosticoModificar(@PathVariable("id") Long id, Model model) {
+        Diagnostico diagnostico = diagnosticoService.getDiagnosticoById(id);
+        model.addAttribute("diagnostico", diagnostico);
+        return "/diagnosticos/modificar";
     }
 }

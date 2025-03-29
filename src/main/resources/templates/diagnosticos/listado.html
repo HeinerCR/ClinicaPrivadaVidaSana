@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/plantilla :: head"></head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/plantilla :: head">
+    <title>Listado de Diagnósticos</title>
+</head>
 <body>
-    <header th:replace="layout/plantilla :: header"></header>
-    <div class="container">
-        <h1>Listado de Diagnósticos</h1>
-        <section th:replace="diagnostico/fragmentos :: botonesAgregarDiagnostico"/>
-        <section th:replace="diagnostico/fragmentos :: listadoDiagnosticos"/>
-    </div>
-    <footer th:replace="layout/plantilla :: footer"></footer>
+<header th:replace="layout/plantilla :: header"></header>
+<div class="container">
+    <h1>Listado de Diagnósticos</h1>
+    <section th:replace="diagnosticos/fragmentos :: botonesAgregar"></section>
+    <section th:replace="diagnosticos/fragmentos :: listadoDiagnosticos"></section>
+    <section th:replace="diagnosticos/fragmentos :: agregarDiagnostico"></section>
+</div>
+<footer th:replace="layout/plantilla :: footer"></footer>
 </body>
 </html>

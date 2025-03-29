@@ -1,13 +1,13 @@
+package com.clinica.serviceimpl;
 
+import com.clinica.dao.DiagnosticoDao;
 import com.clinica.domain.Diagnostico;
+import com.clinica.service.DiagnosticoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 @Service
 public class DiagnosticoServiceImpl implements DiagnosticoService {
 
@@ -15,7 +15,26 @@ public class DiagnosticoServiceImpl implements DiagnosticoService {
     private DiagnosticoDao diagnosticoDao;
 
     @Override
-    public List<Diagnostico> obtenerDiagnosticosPorCliente(int clienteId) {
-        return diagnosticoDao.findByClienteId(clienteId);
+    @Transactional(readOnly = true)
+    public List<Diagnostico> getDiagnosticos() {
+        return diagnosticoDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Diagnostico getDiagnosticoById(Long idDiagnostico) {
+        return diagnosticoDao.findById(idDiagnostico).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public void save(Diagnostico diagnostico) {
+        diagnosticoDao.save(diagnostico);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Diagnostico diagnostico) {
+        diagnosticoDao.delete(diagnostico);
     }
 }
