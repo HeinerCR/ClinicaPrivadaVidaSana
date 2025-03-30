@@ -13,32 +13,32 @@
                             type="button"
                             class="btn btn-block"
                             data-bs-toggle="modal"
-                            data-bs-target="#agregarTratamiento"
+                            data-bs-target="#agregarLaboratorio"
                             style="background-color: #57c4ad; color: white; border: none; border-radius: 8px; padding: 12px 20px; font-size: 16px; font-weight: bold; transition: background-color 0.3s;">
-                            <i class="fas fa-user-plus"></i> Agregar Tratamiento
+                            <i class="fas fa-user-plus"></i> Agregar Laboratorio
                         </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section th:fragment="agregarTratamiento">
-            <div id="agregarTratamiento" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <section th:fragment="agregarLaboratorio">
+            <div id="agregarLaboratorio" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg"> 
                     <div class="modal-content" style="border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
 
                         <div class="modal-header" style="background-color: #4CAF50; color: white; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                            <h5 class="modal-title"><i class="fas fa-notes-medical"></i> [[#{tratamiento.agregar}]]</h5>
+                            <h5 class="modal-title"><i class="fas fa-notes-medical"></i> [[#{laboratorio.agregar}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
-                        <form th:action="@{/tratamientos/guardar}" th:object="${tratamientos}" 
+                        <form th:action="@{/laboratorios/guardar}" th:object="${laboratorios}" 
                               method="POST" class="was-validated" enctype="multipart/form-data">
                             <div class="modal-body" style="background-color: #f9f9f9; padding: 20px;">
 
                                 <div class="mb-4">
                                     <label for="usuario" class="form-label">
-                                        <i class="fas fa-user"></i> [[#{tratamiento.usuario}]]
+                                        <i class="fas fa-user"></i> [[#{laboratorio.usuario}]]
                                     </label>
                                     <select class="form-control" name="usuario" 
                                             style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc;">
@@ -47,24 +47,16 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="descripcion" class="form-label">
-                                        <i class="fas fa-notes-medical"></i> [[#{tratamiento.descripcion}]]
+                                    <label for="resultado" class="form-label">
+                                        <i class="fas fa-notes-medical"></i> [[#{laboratorio.resultado}]]
                                     </label>
                                     <textarea class="form-control" name="descripcion" rows="5" required=""
                                               style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc; resize: none;"></textarea>
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="fecha_inicio" class="form-label">
-                                        <i class="fas fa-calendar-alt"></i> [[#{tratamiento.fecha_inicio}]]
-                                    </label>
-                                    <input type="date" class="form-control" name="fecha" required=""
-                                           style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc;">
-                                </div>
-
-                                <div class="mb-4">
-                                    <label for="fecha_fin" class="form-label">
-                                        <i class="fas fa-calendar-alt"></i> [[#{tratamiento.fecha_fin}]]
+                                    <label for="fecha" class="form-label">
+                                        <i class="fas fa-calendar-alt"></i> [[#{laboratorio.fecha}]]
                                     </label>
                                     <input type="date" class="form-control" name="fecha" required=""
                                            style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc;">
@@ -83,34 +75,32 @@
             </div>
         </section>
 
-        <section th:fragment="listadoTratamientos" id="tratamientos">
+        <section th:fragment="listadoLaboratorios" id="laboratorios">
             <div class="container">
                 <div class="row">
                     <div class="col-md-9">
                         <div class="card">
                             <div class="card-header">
-                                <h4>[[#{tratamiento.listado}]]</h4>
+                                <h4>[[#{laboratorio.listado}]]</h4>
                             </div>
-                            <div th:if="${tratamientos != null and !tratamientos.empty}">
+                            <div th:if="${laboratorios != null and !laboratorios.empty}">
                                 <table class="table table-striped table-hover">
                                     <thead class="table-dark">
                                         <tr><th>#</th>
-                                            <th>[[#{tratamiento.descripcion}]]</th>
-                                            <th>[[#{tratamiento.fecha_inicio}]]</th>
-                                            <th>[[#{tratamiento.fecha_fin}]]</th>
+                                            <th>[[#{laboratorio.fecha}]]</th>
+                                            <th>[[#{laboratorio.resultado}]]</th>
                                             <th></th></tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="tratamiento, contador : ${tratamientos}">
+                                        <tr th:each="laboratorio, contador : ${laboratorios}">
                                             <td>[[${contador.count}]]</td>
-                                            <th>[[#{tratamiento.descripcion}]]</th>
-                                            <th>[[#{tratamiento.fecha_inicio}]]</th>
-                                            <th>[[#{tratamiento.fecha_fin}]]</th>
+                                            <td>[[${laboratorio.fecha}]]</td>
+                                            <td>[[${laboratorio.resultado}]]</td>
                                             <td>
-                                                <a th:href="@{/tratamientos/eliminar/{id}(id=${tratamiento.idtratamiento})}" class="btn btn-danger">
+                                                <a th:href="@{/laboratorios/eliminar/{id}(id=${laboratorio.idlaboratorio})}" class="btn btn-danger">
                                                     <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                                                 </a>
-                                                <a th:href="@{/tratamientos/modificar/{id}(id=${tratamiento.idtratamiento})}" class="btn btn-danger">
+                                                <a th:href="@{/laboratorios/modificar/{id}(id=${laboratorio.idlaboratorio})}" class="btn btn-danger">
                                                     <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
                                                 </a>
                                             </td>
@@ -118,7 +108,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="text-center p-3" th:if="${tratamientos == null or tratamientos.empty}" style="background-color: #f9f9f9; border-radius: 10px;">
+                            <div class="text-center p-3" th:if="${laboratorios == null or laboratorios.empty}" style="background-color: #f9f9f9; border-radius: 10px;">
                                 <span style="color: #6c757d;">[[#{lista.vacia}]]</span>
                             </div>
                         </div>
@@ -126,8 +116,8 @@
                     <div class="col-md-3">
                         <div class="card text-center bg-primary text-white mb-3">
                             <div class="card-body">
-                                <h3>[[#{tratamiento.total}]]</h3>
-                                <h4 class="fs-2"><i class="fas fa-users"></i> [[${totalTratamientos}]]</h4>
+                                <h3>[[#{laboratorio.total}]]</h3>
+                                <h4 class="fs-2"><i class="fas fa-users"></i> [[${totalLaboratorios}]]</h4>
                             </div>
                         </div>
                     </div>
@@ -135,13 +125,13 @@
             </div>
         </section>
 
-        <section th:fragment="editarTratamiento">
+        <section th:fragment="editarLaboratorio">
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <form method="POST" th:action="@{/tratamientos/guardar}" th:object="${tratamiento}" class="was-validated" enctype="multipart/form-data">
-                        <input type="hidden" name="idTratamiento" th:field="*{idTratamiento}"/>
-                        <section th:replace="~{tratamientos/fragmentos :: botonesEditar}"/>
+                    <form method="POST" th:action="@{/laboratorios/guardar}" th:object="${laboratorio}" class="was-validated" enctype="multipart/form-data">
+                        <input type="hidden" name="idLaboratorio" th:field="*{idLaboratorio}"/>
+                        <section th:replace="~{laboratorios/fragmentos :: botonesEditar}"/>
                         <div class="container">
                             <div class="row">
                                 <div class="col">
@@ -149,19 +139,15 @@
                                         <div class="card-header">
                                             <h4>[[#{accion.actualizar}]]</h4>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="descripcion">[[#{tratamiento.descripcion}]]</label>
-                                            <input type="text" class="form-control" name="descripcion" th:field="*{descripcion}" required=""/>
-                                            </select>
-                                        </div>
                                         <div class="card-body">
                                             <div class="mb-3">
-                                                <label for="fecha_inicio">[[#{tratamiento.fecha_inicio}]]</label>
-                                                <input type="text" class="form-control" name="fecha_inicio" th:field="*{fecha_inicio}" required=""/>
+                                                <label for="fecha">[[#{laboratorio.fecha}]]</label>
+                                                <input type="text" class="form-control" name="fecha" th:field="*{fecha}" required=""/>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="fecha_fin">[[#{tratamiento.fecha_fin}]]</label>
-                                                <input type="text" class="form-control" name="fecha_fin" th:field="*{fecha_fin}" required=""/>
+                                                <label for="resultado">[[#{laboratorio.resultado}]]</label>
+                                                <input type="text" class="form-control" name="resultado" th:field="*{resultado}" required=""/>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -177,7 +163,7 @@
             <div class="container py-4 mb-4 bg-light">
                 <div class="row">
                     <div class="col-md-4 d-grid">
-                        <a th:href="@{/tratamientos/listado}" class="btn btn-primary">
+                        <a th:href="@{/laboratorios/listado}" class="btn btn-primary">
                             <i class="fas fa-arrow-left"></i> [[#{accion.cancelar}]]
                         </a>
                     </div>

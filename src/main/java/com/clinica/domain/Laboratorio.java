@@ -1,13 +1,42 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.clinica.domain;
 
-/**
- *
- * @author Usuario
- */
-public class Laboratorio {
-    
+import lombok.Data;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import jakarta.persistence.*;
+
+@Data
+@Entity
+@Table(name = "laboratorios")
+public class Laboratorio implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idlaboratorio")
+    private Long idlaboratorio;
+
+    @Column(name = "idusuario", nullable = false)
+    private Long idUsuario;
+
+    @Column(name = "resultado", nullable = false)
+    private String resultado;
+
+    @Column(name = "fecha", nullable = false)
+    private LocalDateTime fecha;
+
+    // Constructores
+    public Laboratorio() {
+    }
+
+    public Laboratorio(Long idlaboratorio) {
+        this.idlaboratorio = idlaboratorio;
+    }
+
+    public Laboratorio(Long idUsuario, LocalDateTime fecha, String resultado) {
+        this.idUsuario = idUsuario;
+        this.fecha = fecha;
+        this.resultado = resultado;
+    }
 }

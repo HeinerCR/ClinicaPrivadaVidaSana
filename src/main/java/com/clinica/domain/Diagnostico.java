@@ -1,10 +1,11 @@
 package com.clinica.domain;
 
-import jakarta.persistence.*;
+import lombok.Data;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
-import java.time.LocalDate;
-
+@Data
 @Entity
 @Table(name = "diagnosticos")
 public class Diagnostico implements Serializable {
@@ -13,7 +14,8 @@ public class Diagnostico implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "iddiagnostico")
+    private Long iddiagnostico;
 
     @Column(name = "idusuario", nullable = false)
     private Long idUsuario;
@@ -22,48 +24,19 @@ public class Diagnostico implements Serializable {
     private String descripcion;
 
     @Column(name = "fecha", nullable = false)
-    private LocalDate fecha;
+    private LocalDateTime fecha;
 
+    // Constructores
     public Diagnostico() {
     }
 
-    // Constructor con ID
-    public Diagnostico(Long id) {
-        this.id = id;
+    public Diagnostico(Long iddiagnostico) {
+        this.iddiagnostico = iddiagnostico;
     }
 
-    // Getters y setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Long idUsuario) {
+    public Diagnostico(Long idUsuario, LocalDateTime fecha, String descripcion) {
         this.idUsuario = idUsuario;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
+        this.fecha = fecha;
         this.descripcion = descripcion;
     }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
 }

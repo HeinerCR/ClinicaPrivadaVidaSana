@@ -1,13 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.clinica.service;
 
-/**
- *
- * @author Usuario
- */
-public class LaboratorioService {
-    
+import java.util.List;
+import com.clinica.domain.Laboratorio;
+
+public interface LaboratorioService {
+
+    public List<Laboratorio> getLaboratorios();
+    public Laboratorio getLaboratorioById(Long idLaboratorio);
+    public void save(Laboratorio laboratorio);
+    public void delete(Laboratorio laboratorio);
 }

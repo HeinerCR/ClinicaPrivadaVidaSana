@@ -21,6 +21,7 @@
                 </div>
             </div>
         </section>
+        
         <section th:fragment="listadoDiagnosticos" id="diagnostico">
             <div class="container">
                 <div class="row">
@@ -36,7 +37,6 @@
                                 <thead style="background-color: #57c4ad; color: white;">
                                     <tr>
                                         <th>#</th>
-                                        <th>[[#{diagnostico.diagnosticoo}]]</th>
                                         <th>[[#{diagnostico.descripcion}]]</th>
                                         <th>[[#{diagnostico.fecha}]]</th>
                                         <th>Acciones</th>
@@ -45,15 +45,14 @@
                                 <tbody>
                                     <tr th:each="diagnostico, contador : ${diagnosticos}" style="transition: background-color 0.3s; cursor: pointer;">
                                         <td>[[${contador.count}]]</td>
-                                        <td>[[${diagnostico.diagnostico}]]</td>
                                         <td>[[${diagnostico.descripcion}]]</td>
                                         <td>[[${diagnostico.fecha}]]</td>
                                         <td>
-                                            <a th:href="@{/diagnostico/eliminar/{id}(id=${diagnostico.idDiagnostico})}" 
+                                            <a th:href="@{/diagnosticos/eliminar/{id}(id=${diagnostico.iddiagnostico})}" 
                                                class="btn btn-danger btn-sm" style="border-radius: 5px;">
                                                 <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                                             </a>
-                                            <a th:href="@{/diagnostico/modificar/{id}(id=${diagnostico.idDiagnostico})}" 
+                                            <a th:href="@{/diagnosticos/modificar/{id}(id=${diagnostico.iddiagnostico})}" 
                                                class="btn btn-warning btn-sm text-white" style="border-radius: 5px;">
                                                 <i class="fas fa-pencil-alt"></i> [[#{accion.actualizar}]]
                                             </a>
@@ -73,7 +72,7 @@
 
         <section th:fragment="agregarDiagnostico">
             <div id="agregarDiagnostico" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg"> <!-- Tamaño del modal ajustado -->
+                <div class="modal-dialog modal-lg"> 
                     <div class="modal-content" style="border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
         
                         <div class="modal-header" style="background-color: #4CAF50; color: white; border-top-left-radius: 10px; border-top-right-radius: 10px;">
