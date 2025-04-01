@@ -5,7 +5,7 @@
         <title>Clinica</title>
     </head>
     <body>
-        <section th:fragment="botonesAgregar" class="py-4 mb-4" style="background-color: #e6f7f9; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <section th:fragment="botonesAgregar" class="py-4 mb-4" style="background-color: #e6f7f9; border-radius: 10px;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 text-center">
@@ -14,7 +14,7 @@
                             class="btn btn-block"
                             data-bs-toggle="modal"
                             data-bs-target="#agregarLaboratorio"
-                            style="background-color: #57c4ad; color: white; border: none; border-radius: 8px; padding: 12px 20px; font-size: 16px; font-weight: bold; transition: background-color 0.3s;">
+                            style="background-color: #57c4ad; color: white; font-weight: bold; padding: 12px 20px;">
                             <i class="fas fa-user-plus"></i> Agregar Laboratorio
                         </button>
                     </div>
@@ -22,50 +22,40 @@
             </div>
         </section>
 
+
         <section th:fragment="agregarLaboratorio">
             <div id="agregarLaboratorio" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg"> 
-                    <div class="modal-content" style="border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-
-                        <div class="modal-header" style="background-color: #4CAF50; color: white; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
                             <h5 class="modal-title"><i class="fas fa-notes-medical"></i> [[#{laboratorio.agregar}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-
-                        <form th:action="@{/laboratorios/guardar}" th:object="${laboratorios}" 
-                              method="POST" class="was-validated" enctype="multipart/form-data">
-                            <div class="modal-body" style="background-color: #f9f9f9; padding: 20px;">
-
+                        <form th:action="@{/laboratorios/guardar}" th:object="${laboratorios}" method="POST" class="was-validated" enctype="multipart/form-data">
+                            <div class="modal-body" style="padding: 20px;">
                                 <div class="mb-4">
                                     <label for="usuario" class="form-label">
                                         <i class="fas fa-user"></i> [[#{laboratorio.usuario}]]
                                     </label>
-                                    <select class="form-control" name="usuario" 
-                                            style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc;">
+                                    <select class="form-control" name="usuario" style="border-radius: 8px; border: 1px solid #ccc;">
                                         <option value="usuario">José</option>
                                     </select>
                                 </div>
-
                                 <div class="mb-4">
                                     <label for="resultado" class="form-label">
                                         <i class="fas fa-notes-medical"></i> [[#{laboratorio.resultado}]]
                                     </label>
-                                    <textarea class="form-control" name="descripcion" rows="5" required=""
-                                              style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc; resize: none;"></textarea>
+                                    <textarea class="form-control" name="descripcion" rows="5" required style="border-radius: 8px; resize: none;"></textarea>
                                 </div>
-
                                 <div class="mb-4">
                                     <label for="fecha" class="form-label">
                                         <i class="fas fa-calendar-alt"></i> [[#{laboratorio.fecha}]]
                                     </label>
-                                    <input type="date" class="form-control" name="fecha" required=""
-                                           style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc;">
+                                    <input type="date" class="form-control" name="fecha" required style="border-radius: 8px;">
                                 </div>
                             </div>
-
-                            <div class="modal-footer" style="background-color: #f1f1f1; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
-                                <button class="btn btn-primary" type="submit" 
-                                        style="border-radius: 8px; background-color: #4CAF50; border: none;">
+                            <div class="modal-footer">
+                                <button class="btn btn-success" type="submit" style="background-color: #4CAF50;">
                                     <i class="fas fa-save"></i> Guardar
                                 </button>
                             </div>
@@ -78,53 +68,59 @@
         <section th:fragment="listadoLaboratorios" id="laboratorios">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-9">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>[[#{laboratorio.listado}]]</h4>
-                            </div>
-                            <div th:if="${laboratorios != null and !laboratorios.empty}">
-                                <table class="table table-striped table-hover">
-                                    <thead class="table-dark">
-                                        <tr><th>#</th>
-                                            <th>[[#{laboratorio.fecha}]]</th>
-                                            <th>[[#{laboratorio.resultado}]]</th>
-                                            <th></th></tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="laboratorio, contador : ${laboratorios}">
-                                            <td>[[${contador.count}]]</td>
-                                            <td>[[${laboratorio.fecha}]]</td>
-                                            <td>[[${laboratorio.resultado}]]</td>
-                                            <td>
-                                                <a th:href="@{/laboratorios/eliminar/{id}(id=${laboratorio.idlaboratorio})}" class="btn btn-danger">
-                                                    <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
-                                                </a>
-                                                <a th:href="@{/laboratorios/modificar/{id}(id=${laboratorio.idlaboratorio})}" class="btn btn-danger">
-                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="text-center p-3" th:if="${laboratorios == null or laboratorios.empty}" style="background-color: #f9f9f9; border-radius: 10px;">
-                                <span style="color: #6c757d;">[[#{lista.vacia}]]</span>
+                    <!-- Si hay laboratorios, mostrarlos como tarjetas -->
+                    <div th:if="${laboratorios != null and !laboratorios.empty}">
+                        <div class="row g-4">
+                            <div class="col-md-4" th:each="laboratorio : ${laboratorios}">
+                                <div class="card shadow-lg border-0">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-primary">
+                                            <i class="fas fa-calendar-alt"></i> [[${laboratorio.fecha}]]
+                                        </h5>
+                                        <p class="card-text">
+                                            <i class="fas fa-notes-medical"></i> [[${laboratorio.resultado}]]
+                                        </p>
+                                        <div class="d-flex justify-content-end">
+                                            <a th:href="@{/laboratorios/eliminar/{id}(id=${laboratorio.idlaboratorio})}" class="btn btn-outline-danger mx-1">
+                                                <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                                            </a>
+                                            <a th:href="@{/laboratorios/modificar/{id}(id=${laboratorio.idlaboratorio})}" class="btn btn-outline-primary mx-1">
+                                                <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="card text-center bg-primary text-white mb-3">
+
+                    <!-- Si no hay laboratorios, mostrar mensaje -->
+                    <div th:if="${laboratorios == null or laboratorios.empty}" class="text-center py-5">
+                        <p class="text-muted">
+                            <i class="fas fa-folder-open"></i> [[#{lista.vacia}]]
+                        </p>
+                    </div>
+                </div>
+                
+                    <div class="floating-card" style="
+                         position: fixed;
+                         bottom:20px;
+                         right: 20px;
+                         width: 250px;
+                         box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+                         border-radius: 15px;
+                         background-color: #ffffff;
+                         z-index: 1000;">
+                        <div class="card text-center border-primary">
                             <div class="card-body">
                                 <h3>[[#{laboratorio.total}]]</h3>
-                                <h4 class="fs-2"><i class="fas fa-users"></i> [[${totalLaboratorios}]]</h4>
+                                <h4 class="fs-2 text-primary"><i class="fas fa-users"></i> [[${totalLaboratorios}]]</h4>
                             </div>
                         </div>
-                    </div>
+                  
                 </div>
             </div>
         </section>
-
         <section th:fragment="editarLaboratorio">
             <div class="row">
                 <div class="col-md-2"></div>
