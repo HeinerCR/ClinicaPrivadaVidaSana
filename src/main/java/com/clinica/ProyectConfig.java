@@ -50,14 +50,14 @@ public class ProyectConfig implements WebMvcConfigurer {
         return messageSource;
     }
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-        registry.addViewController("/index").setViewName("index");
-        registry.addViewController("/Login").setViewName("login");
-        registry.addViewController("/registro/nuevo").setViewName("/registro/nuevo");
+  //@Override
+    //public void addViewControllers(ViewControllerRegistry registry) {
+    //  registry.addViewController("/").setViewName("index");
+    //registry.addViewController("/index").setViewName("index");
+  //      registry.addViewController("/Login").setViewName("login");
+    //    registry.addViewController("/registro/nuevo").setViewName("/registro/nuevo");
 
-    }
+    //}
 
     /* El siguiente método se utiliza para completar la clase no es 
     realmente funcional, la próxima semana se reemplaza con usuarios de BD */
