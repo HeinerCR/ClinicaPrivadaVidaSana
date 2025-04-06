@@ -5,7 +5,7 @@
         <title>Clinica</title>
     </head>
     <body>
-        <section th:fragment="botonesAgregar" class="py-4 mb-4" style="background-color: #e6f7f9; border-radius: 10px;">
+        <section th:fragment="botonesAgregar" class="py-4 mb-4" style="background-color: #e6f7f9; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 text-center">
@@ -21,7 +21,6 @@
                 </div>
             </div>
         </section>
-
 
         <section th:fragment="agregarLaboratorio">
             <div id="agregarLaboratorio" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -101,26 +100,18 @@
                         </p>
                     </div>
                 </div>
-                
-                    <div class="floating-card" style="
-                         position: fixed;
-                         bottom:20px;
-                         right: 20px;
-                         width: 250px;
-                         box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-                         border-radius: 15px;
-                         background-color: #ffffff;
-                         z-index: 1000;">
+                    <div class="floating-card" style="position: fixed; bottom: 20px; right: 20px; width: 250px; box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); border-radius: 15px; background-color: #ffffff; z-index: 1000;">
                         <div class="card text-center border-primary">
                             <div class="card-body">
                                 <h3>[[#{laboratorio.total}]]</h3>
                                 <h4 class="fs-2 text-primary"><i class="fas fa-users"></i> [[${totalLaboratorios}]]</h4>
                             </div>
                         </div>
-                  
+                   </div>
                 </div>
             </div>
         </section>
+
         <section th:fragment="editarLaboratorio">
             <div class="row">
                 <div class="col-md-2"></div>
@@ -143,7 +134,6 @@
                                             <div class="mb-3">
                                                 <label for="resultado">[[#{laboratorio.resultado}]]</label>
                                                 <input type="text" class="form-control" name="resultado" th:field="*{resultado}" required=""/>
-                                                </select>
                                             </div>
                                         </div>
                                     </div>
