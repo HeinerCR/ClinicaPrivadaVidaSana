@@ -4,9 +4,12 @@
     <body>
         <header th:replace="layout/plantilla :: header"></header>
         <div class="container text-center mt-5">
+            <!-- Título principal -->
             <h1 class="mb-3" style="font-size: 2.5rem; font-weight: bold; color: #0073e6;">
                 Bienvenido a la Clínica Vida Sana
             </h1>
+
+            <!-- Información general -->
             <p class="lead" style="font-size: 1.2rem; line-height: 1.8; color: #555;">
                 En nuestra clínica, brindamos atención médica de alta calidad con un equipo de profesionales dedicados a tu bienestar.
                 Ofrecemos una amplia gama de servicios médicos para garantizar tu salud y la de tu familia.
@@ -15,9 +18,42 @@
                 No dejes tu salud para después, agenda una cita con nuestros especialistas hoy mismo y recibe la mejor atención.
             </p>
 
+            <!-- Imagen y mensaje promocional -->
             <div class="mt-4">
                 <img th:src="@{/images/instalaciones.jpg}" class="img-fluid rounded shadow-lg" alt="Clínica Vida Sana" style="max-width: 600px; border-radius: 10px;">
-                    <p class="mt-3" style="font-size: 1rem; color: #333;">Te animamos a que conozcas nuestras instalaciones.</p>
+                <p class="mt-3" style="font-size: 1rem; color: #333;">Te animamos a que conozcas nuestras instalaciones.</p>
+            </div>
+
+            <!-- Sección personalizada para el usuario -->
+            <div class="mt-5">
+                <h2 th:text="'Hola, ' + ${usuario.nombre} + '!'" style="color: #4CAF50;"></h2>
+                <p th:if="${usuario.tipo == 'Administrador'}" style="font-size: 1rem; color: #555;">
+                    Eres Administrador. Tienes acceso a todos los datos de usuarios, tratamientos, diagnósticos y laboratorios.
+                </p>
+                <p th:if="${usuario.tipo != 'Administrador'}" style="font-size: 1rem; color: #555;">
+                    Eres Cliente o Médico. Solo puedes gestionar tu información personal y tus citas.
+                </p>
+
+                <!-- Enlaces dinámicos según tipo de usuario -->
+                <div class="mt-4">
+                    <c:choose>
+                        <!-- Opciones para Administrador -->
+                        <c:when test="${usuario.tipo == 'Administrador'}">
+                            <a href="/usuario/listado" class="btn btn-primary mx-2" style="color: white;">Gestionar Usuarios</a>
+                            <a href="/tratamientos/listado" class="btn btn-primary mx-2" style="color: white;">Gestionar Tratamientos</a>
+                            <a href="/diagnosticos/listado" class="btn btn-primary mx-2" style="color: white;">Gestionar Diagnósticos</a>
+                            <a href="/laboratorios/listado" class="btn btn-primary mx-2" style="color: white;">Gestionar Laboratorios</a>
+                        </c:when>
+
+                        <!-- Opciones para Clientes o Médicos -->
+                        <c:otherwise>
+                            <a href="/usuario/mis-datos" class="btn btn-success mx-2">Mis Datos</a>
+                            <a href="/tratamientos/mis-tratamientos" class="btn btn-success mx-2">Mis Tratamientos</a>
+                            <a href="/diagnosticos/mis-diagnosticos" class="btn btn-success mx-2">Mis Diagnósticos</a>
+                            <a href="/laboratorios/mis-laboratorios" class="btn btn-success mx-2">Mis Laboratorios</a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
         </div>
 

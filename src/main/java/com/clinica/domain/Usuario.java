@@ -5,25 +5,34 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "usuario") // Mapea la tabla "usuario" en la base de datos
+@Table(name = "usuario") // Vincula la entidad con la tabla "usuario" en la base de datos
 public class Usuario {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idusuario") // Mapeo correcto con el nombre de la columna en la base de datos
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Clave primaria autoincremental
+    @Column(name = "idusuario")
     private Long idUsuario;
 
-    private String nombre;       // Nombre del usuario
-    private Integer edad;        // Edad del usuario
-    private String cedula;       // Cédula única del usuario
-    private String correo;       // Correo electrónico del usuario
-    private String contrasena;   // Contraseña del usuario
-    private String telefono;     // Teléfono de contacto
+    @Column(nullable = false, length = 100)
+    private String nombre; // Nombre del usuario
 
-    @Enumerated(EnumType.STRING) // Almacena el tipo de usuario como texto en la base de datos
-    private TipoUsuario tipo;    // Tipo de usuario: Cliente, Medico o Administrador
+    @Column(unique = true, nullable = false, length = 100)
+    private String correo; // Correo electrónico único
 
-    // Enumeración para tipo de usuario
+    @Column(nullable = false)
+    private String contrasena; // Contraseña del usuario (debe ser cifrada)
+
+    @Column(nullable = true, length = 15)
+    private String telefono; // Teléfono (opcional)
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private TipoUsuario tipo; // Tipo de usuario: Cliente, Médico o Administrador
+
+    // Enumeración para definir los roles de usuario
     public enum TipoUsuario {
-        Cliente, Medico, Administrador
+        Cliente,
+        Medico,
+        Administrador
     }
 }
