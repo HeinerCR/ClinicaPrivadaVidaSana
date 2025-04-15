@@ -17,8 +17,8 @@ public class UsuarioController {
     // Registro de usuarios
     @PostMapping("/registrar")
     public String registrar(@ModelAttribute Usuario usuario) {
-        usuarioService.save(usuario); // Guarda el usuario
-        return "redirect:/usuario/listado"; // Redirige al listado tras el registro exitoso
+        usuarioService.save(usuario); // Guarda el usuario utilizando el método save
+        return "redirect:/";
     }
 
     // Listado de usuarios
@@ -36,5 +36,10 @@ public class UsuarioController {
             usuarioService.delete(usuario);
         }
         return "redirect:/usuario/listado";
+    }
+
+    @GetMapping("/usuario/registrar")
+    public String mostrarFormularioRegistro() {
+        return "registrar"; // Nombre del archivo en src/main/resources/templates
     }
 }

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Clínica Vida Sana</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .registro-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .registro-container h1 {
+            color: #0073e6;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 1rem;
+        }
+
+        .btn-registrar {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 10px;
+            width: 100%;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-registrar:hover {
+            background-color: #218838;
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="registro-container">
+        <h1>Registro de Usuario</h1>
+        <form method="POST" action="/usuario/registrar">
+            <div class="mb-3">
+                <input type="text" name="nombre" class="form-control" placeholder="Nombre completo" required>
+            </div>
+            <div class="mb-3">
+                <input type="email" name="correo" class="form-control" placeholder="Correo electrónico" required>
+            </div>
+            <div class="mb-3">
+                <input type="password" name="contrasena" class="form-control" placeholder="Contraseña" required>
+            </div>
+            <div class="mb-3">
+                <select name="tipo" class="form-control" required>
+                    <option value="Cliente">Cliente</option>
+                    <option value="Medico">Médico</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-registrar">Registrar Usuario</button>
+        </form>
+    </div>
+</body>
+</html>
