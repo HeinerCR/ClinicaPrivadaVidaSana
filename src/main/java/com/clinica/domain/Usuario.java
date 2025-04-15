@@ -1,50 +1,29 @@
 package com.clinica.domain;
 
-import lombok.Data;
-import java.io.Serializable;
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "usuario")
-public class Usuario implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+@Table(name = "usuario") // Mapea la tabla "usuario" en la base de datos
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idusuario")
+    @Column(name = "idusuario") // Mapeo correcto con el nombre de la columna en la base de datos
     private Long idUsuario;
-    private String nombre;
-    private Integer edad;
-    private String cedula;
-    private String correo;
-    private String contrasena;
-    private String telefono;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo", nullable = false)
-    private TipoUsuario tipo;
+    private String nombre;       // Nombre del usuario
+    private Integer edad;        // Edad del usuario
+    private String cedula;       // Cédula única del usuario
+    private String correo;       // Correo electrónico del usuario
+    private String contrasena;   // Contraseña del usuario
+    private String telefono;     // Teléfono de contacto
 
+    @Enumerated(EnumType.STRING) // Almacena el tipo de usuario como texto en la base de datos
+    private TipoUsuario tipo;    // Tipo de usuario: Cliente, Medico o Administrador
+
+    // Enumeración para tipo de usuario
     public enum TipoUsuario {
-        Cliente, Medico
-    }
-
-    // Constructores
-    public Usuario() {
-    }
-
-    public Usuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public Usuario(String nombre, Integer edad, String cedula, String correo, String contrasena, String telefono, TipoUsuario tipo) {
-        this.nombre = nombre;
-        this.edad = edad;
-        this.cedula = cedula;
-        this.correo = correo;
-        this.contrasena = contrasena;
-        this.telefono = telefono;
-        this.tipo = tipo;
+        Cliente, Medico, Administrador
     }
 }

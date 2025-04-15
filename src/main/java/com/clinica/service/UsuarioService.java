@@ -1,13 +1,11 @@
 package com.clinica.service;
 
-import java.util.List;
 import com.clinica.domain.Usuario;
+import java.util.List;
 
 public interface UsuarioService {
-
-    public List<Usuario> getUsuarios();
-    public Usuario getUsuarioById(Long idUsuario);
-    public void save(Usuario usuario);
-    public void delete(Usuario usuario);
-
+    List<Usuario> getUsuarios();
+    Usuario getUsuarioById(Long idUsuario);
+    void save(Usuario usuario);
+    void delete(Usuario usuario);
 }
