@@ -3,6 +3,7 @@
     <head th:replace="layout/plantilla :: head"></head>
     <body>
         <header th:replace="layout/plantilla :: header"></header>
+
         <div class="container text-center mt-5">
             <!-- Título principal -->
             <h1 class="mb-3" style="font-size: 2.5rem; font-weight: bold; color: #0073e6;">
@@ -27,38 +28,32 @@
             <!-- Sección personalizada para el usuario -->
             <div class="mt-5">
                 <h2 th:text="'Hola, ' + ${usuario.nombre} + '!'" style="color: #4CAF50;"></h2>
+
                 <p th:if="${usuario.tipo == 'Administrador'}" style="font-size: 1rem; color: #555;">
                     Eres Administrador. Tienes acceso a todos los datos de usuarios, tratamientos, diagnósticos y laboratorios.
                 </p>
-                <p th:if="${usuario.tipo != 'Administrador'}" style="font-size: 1rem; color: #555;">
+                <p th:unless="${usuario.tipo == 'Administrador'}" style="font-size: 1rem; color: #555;">
                     Eres Cliente o Médico. Solo puedes gestionar tu información personal y tus citas.
                 </p>
 
                 <!-- Enlaces dinámicos según tipo de usuario -->
                 <div class="mt-4">
-                    <c:choose>
-                        <!-- Opciones para Administrador -->
-                        <c:when test="${usuario.tipo == 'Administrador'}">
-                            <a href="/usuario/listado" class="btn btn-primary mx-2" style="color: white;">Gestionar Usuarios</a>
-                            <a href="/tratamientos/listado" class="btn btn-primary mx-2" style="color: white;">Gestionar Tratamientos</a>
-                            <a href="/diagnosticos/listado" class="btn btn-primary mx-2" style="color: white;">Gestionar Diagnósticos</a>
-                            <a href="/laboratorios/listado" class="btn btn-primary mx-2" style="color: white;">Gestionar Laboratorios</a>
-                        </c:when>
-
-                        <!-- Opciones para Clientes o Médicos -->
-                        <c:otherwise>
-                            <a href="/usuario/mis-datos" class="btn btn-success mx-2">Mis Datos</a>
-                            <a href="/tratamientos/mis-tratamientos" class="btn btn-success mx-2">Mis Tratamientos</a>
-                            <a href="/diagnosticos/mis-diagnosticos" class="btn btn-success mx-2">Mis Diagnósticos</a>
-                            <a href="/laboratorios/mis-laboratorios" class="btn btn-success mx-2">Mis Laboratorios</a>
-                        </c:otherwise>
-                    </c:choose>
+                    <div th:if="${usuario.tipo == 'Administrador'}">
+                        <a th:href="@{/usuario/listado}" class="btn btn-primary mx-2" style="color: white;">Gestionar Usuarios</a>
+                        <a th:href="@{/tratamientos/listado}" class="btn btn-primary mx-2" style="color: white;">Gestionar Tratamientos</a>
+                        <a th:href="@{/diagnosticos/listado}" class="btn btn-primary mx-2" style="color: white;">Gestionar Diagnósticos</a>
+                        <a th:href="@{/laboratorios/listado}" class="btn btn-primary mx-2" style="color: white;">Gestionar Laboratorios</a>
+                    </div>
+                    <div th:unless="${usuario.tipo == 'Administrador'}">
+                        <a th:href="@{/usuario/mis-datos}" class="btn btn-success mx-2">Mis Datos</a>
+                        <a th:href="@{/tratamientos/mis-tratamientos}" class="btn btn-success mx-2">Mis Tratamientos</a>
+                        <a th:href="@{/diagnosticos/mis-diagnosticos}" class="btn btn-success mx-2">Mis Diagnósticos</a>
+                        <a th:href="@{/laboratorios/mis-laboratorios}" class="btn btn-success mx-2">Mis Laboratorios</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <footer class="mt-5 p-3 text-center" style="background-color: #0073e6; color: white;">
-            <p>&copy; 2025 Clínica Vida Sana. Todos los derechos reservados.</p>
-        </footer>
+        <!-- Footer ya está en la plantilla, así que no se pone aquí -->
     </body>
 </html>

@@ -13,26 +13,26 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    // Carga la página de login
+    // Página inicial: formulario de login
     @GetMapping("/")
     public String loginPage() {
-        return "login"; // Retorna la vista del formulario de login
+        return "login/login"; // login.html dentro de carpeta login/
     }
 
-    // Maneja el envío del formulario de login
+    // Procesamiento del formulario de login
     @PostMapping("/api/login")
-    public String login(@RequestParam String correo, @RequestParam String contrasena, Model model) {
-        // Autentica al usuario mediante el servicio de login
+    public String login(@RequestParam String correo,
+                        @RequestParam String contrasena,
+                        Model model) {
+
         Usuario usuario = loginService.login(correo, contrasena);
 
         if (usuario != null) {
-            // Si las credenciales son válidas, redirige al índice
             model.addAttribute("usuario", usuario);
-            return "redirect:/index"; // Redirige a la página principal
+            return "redirect:/index"; // Redirige a la vista principal
         }
 
-        // Si las credenciales son inválidas, muestra un error
         model.addAttribute("error", "Credenciales incorrectas.");
-        return "login"; // Regresa al formulario de login
+        return "login/login";
     }
 }
