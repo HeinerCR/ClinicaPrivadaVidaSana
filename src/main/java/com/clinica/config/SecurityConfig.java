@@ -15,20 +15,20 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Autowired
-    private CustomUserDetailsService customUserDetailsService; // ¡Esta línea debe estar DESCOMENTADA!
+    private CustomUserDetailsService customUserDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // ... otras configuraciones que puedas tener
-            .userDetailsService(customUserDetailsService); // ¡Esta línea debe estar DESCOMENTADA!
-            // ... el resto de tu configuración
+ 
+            .userDetailsService(customUserDetailsService); 
+
         return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance(); // ¡Esta línea debe estar DESCOMENTADA para el Paso 2!
+        return NoOpPasswordEncoder.getInstance(); 
     }
     
 

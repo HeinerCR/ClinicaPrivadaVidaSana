@@ -21,7 +21,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section th:fragment="listadoDiagnosticos" id="diagnostico">
             <div class="container">
                 <div class="row">
@@ -73,7 +73,7 @@
                                 <h4 class="fs-2 text-primary"><i class="fas fa-users"></i> [[${totalDiagnosticos}]]</h4>
                             </div>
                         </div>
-                   </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -82,7 +82,7 @@
             <div id="agregarDiagnostico" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg"> 
                     <div class="modal-content" style="border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-        
+
                         <div class="modal-header" style="background-color: #4CAF50; color: white; border-top-left-radius: 10px; border-top-right-radius: 10px;">
                             <h5 class="modal-title"><i class="fas fa-notes-medical"></i> [[#{diagnostico.agregar}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -91,17 +91,13 @@
                         <form th:action="@{/diagnosticos/guardar}" th:object="${diagnosticos}" 
                               method="POST" class="was-validated" enctype="multipart/form-data">
                             <div class="modal-body" style="background-color: #f9f9f9; padding: 20px;">
-                          
-                                <div class="mb-4">
-                                    <label for="usuario" class="form-label">
-                                        <i class="fas fa-user"></i> [[#{diagnostico.usuario}]]
-                                    </label>
-                                    <select class="form-control" name="usuario" 
-                                            style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc;">
-                                        <option value="usuario">José</option>
-                                    </select>
-                                </div>
 
+                                <div class="mb-4">
+                                    <div class="mb-3">
+                                        <label for="idUsuario">[[#{diagnostico.idUsuario}]]</label>
+                                        <input type="text" class="form-control" name="idUsuario" required=""/>
+                                    </div>
+                                </div>
                                 <div class="mb-4">
                                     <label for="descripcion" class="form-label">
                                         <i class="fas fa-notes-medical"></i> [[#{diagnostico.descripcion}]]
@@ -114,7 +110,7 @@
                                     <label for="fecha" class="form-label">
                                         <i class="fas fa-calendar-alt"></i> [[#{diagnostico.fecha}]]
                                     </label>
-                                    <input type="date" class="form-control" name="fecha" required=""
+                                    <input type="datetime-local" class="form-control" name="fecha" required=""
                                            style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc;">
                                 </div>
                             </div>
@@ -126,6 +122,59 @@
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section th:fragment="editarDiagnostico">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST" th:action="@{/diagnosticos/guardar}" th:object="${diagnostico}" class="was-validated" enctype="multipart/form-data">
+                        <input type="hidden" name="iddiagnostico" th:field="*{iddiagnostico}"/>
+                        <section th:replace="~{diagnosticos/fragmentos :: botonesEditar}"/>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>[[#{accion.actualizar}]]</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <label for="idUsuario">[[#{diagnostico.idUsuario}]]</label>
+                                                <input type="text" class="form-control" name="idUsuario" required=""/>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="fecha">[[#{diagnostico.fecha}]]</label>
+                                                <input type="datetime-local" class="form-control" name="fecha" required=""/>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="descripcion">[[#{diagnostico.descripcion}]]</label>
+                                                <input type="text" class="form-control" name="descripcion" th:field="*{descripcion}" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="botonesEditar">
+            <div class="container py-4 mb-4 bg-light">
+                <div class="row">
+                    <div class="col-md-4 d-grid">
+                        <a th:href="@{/diagnosticos/listado}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> [[#{accion.cancelar}]]
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> [[#{accion.guardar}]]
+                        </button>
                     </div>
                 </div>
             </div>

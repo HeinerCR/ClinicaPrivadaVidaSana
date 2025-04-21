@@ -30,7 +30,7 @@ public class LaboratorioController {
 
     @GetMapping("/nuevo")
     public String laboratorioNuevo(Model model) {
-        model.addAttribute("laboratorio", new Laboratorio());
+        model.addAttribute("laboratorios", new Laboratorio());
         return "/laboratorios/nuevo";
     }
 

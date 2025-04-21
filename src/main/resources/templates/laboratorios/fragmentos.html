@@ -30,27 +30,25 @@
                             <h5 class="modal-title"><i class="fas fa-notes-medical"></i> [[#{laboratorio.agregar}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form th:action="@{/laboratorios/guardar}" th:object="${laboratorios}" method="POST" class="was-validated" enctype="multipart/form-data">
+                        <form th:action="@{/laboratorios/guardar}" th:object="${laboratorio}" method="POST" class="was-validated" enctype="multipart/form-data">
                             <div class="modal-body" style="padding: 20px;">
                                 <div class="mb-4">
-                                    <label for="usuario" class="form-label">
-                                        <i class="fas fa-user"></i> [[#{laboratorio.usuario}]]
+                                    <label for="idUsuario" class="form-label">
+                                        <i class="fas fa-user"></i> [[#{laboratorio.idUsuario}]]
                                     </label>
-                                    <select class="form-control" name="usuario" style="border-radius: 8px; border: 1px solid #ccc;">
-                                        <option value="usuario">José</option>
-                                    </select>
+                                    <input type="text" class="form-control" name="idUsuario"  required style="border-radius: 8px; border: 1px solid #ccc;"/>
                                 </div>
                                 <div class="mb-4">
                                     <label for="resultado" class="form-label">
                                         <i class="fas fa-notes-medical"></i> [[#{laboratorio.resultado}]]
                                     </label>
-                                    <textarea class="form-control" name="descripcion" rows="5" required style="border-radius: 8px; resize: none;"></textarea>
+                                    <textarea class="form-control" name="resultado" rows="5" required style="border-radius: 8px; resize: none;"></textarea>
                                 </div>
                                 <div class="mb-4">
                                     <label for="fecha" class="form-label">
                                         <i class="fas fa-calendar-alt"></i> [[#{laboratorio.fecha}]]
                                     </label>
-                                    <input type="date" class="form-control" name="fecha" required style="border-radius: 8px;">
+                                    <input type="datetime-local" class="form-control" th:field="*{fecha}" required style="border-radius: 8px;">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -67,7 +65,6 @@
         <section th:fragment="listadoLaboratorios" id="laboratorios">
             <div class="container">
                 <div class="row">
-                    <!-- Si hay laboratorios, mostrarlos como tarjetas -->
                     <div th:if="${laboratorios != null and !laboratorios.empty}">
                         <div class="row g-4">
                             <div class="col-md-4" th:each="laboratorio : ${laboratorios}">
@@ -93,22 +90,22 @@
                         </div>
                     </div>
 
-                    <!-- Si no hay laboratorios, mostrar mensaje -->
+
                     <div th:if="${laboratorios == null or laboratorios.empty}" class="text-center py-5">
                         <p class="text-muted">
                             <i class="fas fa-folder-open"></i> [[#{lista.vacia}]]
                         </p>
                     </div>
                 </div>
-                    <div class="floating-card" style="position: fixed; bottom: 20px; right: 20px; width: 250px; box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); border-radius: 15px; background-color: #ffffff; z-index: 1000;">
-                        <div class="card text-center border-primary">
-                            <div class="card-body">
-                                <h3>[[#{laboratorio.total}]]</h3>
-                                <h4 class="fs-2 text-primary"><i class="fas fa-users"></i> [[${totalLaboratorios}]]</h4>
-                            </div>
+                <div class="floating-card" style="position: fixed; bottom: 20px; right: 20px; width: 250px; box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); border-radius: 15px; background-color: #ffffff; z-index: 1000;">
+                    <div class="card text-center border-primary">
+                        <div class="card-body">
+                            <h3>[[#{laboratorio.total}]]</h3>
+                            <h4 class="fs-2 text-primary"><i class="fas fa-users"></i> [[${totalLaboratorios}]]</h4>
                         </div>
-                   </div>
+                    </div>
                 </div>
+            </div>
             </div>
         </section>
 
@@ -117,7 +114,7 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <form method="POST" th:action="@{/laboratorios/guardar}" th:object="${laboratorio}" class="was-validated" enctype="multipart/form-data">
-                        <input type="hidden" name="idLaboratorio" th:field="*{idLaboratorio}"/>
+                        <input type="hidden" name="idlaboratorio" th:field="*{idlaboratorio}"/>
                         <section th:replace="~{laboratorios/fragmentos :: botonesEditar}"/>
                         <div class="container">
                             <div class="row">
@@ -128,8 +125,12 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="mb-3">
+                                                <label for="idUsuario">[[#{laboratorio.idUsuario}]]</label>
+                                                <input type="text" class="form-control" name="idUsuario" required=""/>
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="fecha">[[#{laboratorio.fecha}]]</label>
-                                                <input type="text" class="form-control" name="fecha" th:field="*{fecha}" required=""/>
+                                                <input type="datetime-local" class="form-control" name="fecha" required=""/>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="resultado">[[#{laboratorio.resultado}]]</label>

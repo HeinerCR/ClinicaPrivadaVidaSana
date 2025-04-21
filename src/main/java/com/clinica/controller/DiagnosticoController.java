@@ -25,13 +25,12 @@ public class DiagnosticoController {
 
     @GetMapping("/nuevo")
     public String diagnosticoNuevo(Model model) {
-        model.addAttribute("diagnostico", new Diagnostico()); // Inicia el objeto Diagnostico vacío
+        model.addAttribute("diagnostico", new Diagnostico());
         return "/diagnosticos/nuevo";
     }
 
     @PostMapping("/guardar")
     public String guardarDiagnostico(@ModelAttribute Diagnostico diagnostico) {
-
         System.out.println("Diagnóstico guardado: " + diagnostico);
         return "redirect:/diagnosticos/listado"; 
     }
@@ -48,7 +47,7 @@ public class DiagnosticoController {
         if (diagnostico == null) {
             return "redirect:/diagnosticos/listado";
         }
-        model.addAttribute("diagnosticos", diagnostico);
-        return "/diagnosticos/modificar";
+        model.addAttribute("diagnostico", diagnostico);
+        return "/diagnosticos/modifica";
     }
 }

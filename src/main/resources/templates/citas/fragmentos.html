@@ -34,12 +34,16 @@
                               method="POST" class="was-validated" enctype="multipart/form-data">
                             <div class="modal-body" style="padding: 20px;">
                                 <div class="mb-3">
+                                    <label for="idUsuario">[[#{cita.idUsuario}]]</label>
+                                    <input type="text" class="form-control" name="idUsuario" required=""/>
+                                </div>
+                                <div class="mb-3">
                                     <label for="fecha">[[#{cita.fecha}]]</label>
                                     <input type="text" class="form-control" name="fecha" required=""/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="tipo">[[#{cita.estado}]]</label>
-                                    <select class="form-control" name="tipo">
+                                    <label for="estado">[[#{cita.estado}]]</label>
+                                    <select class="form-control" name="estado">
                                         <option value="Confirmada">Confirmada</option>
                                         <option value="Pendiente">Pendiente</option>
                                         <option value="Cancelada">Cancelada</option>
@@ -80,7 +84,7 @@
                                         <td>[[${cita.estado}]]</td>
                                         <td>
                                             <a th:href="@{/citas/eliminar/{id}(id=${cita.idCita})}" class="btn btn-danger btn-sm" 
-                                                   style="border-radius: 5px; padding: 5px 10px;">
+                                               style="border-radius: 5px; padding: 5px 10px;">
                                                 <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                                             </a>
                                             <a th:href="@{/citas/modificar/{id}(id=${cita.idCita})}" class="btn btn-warning btn-sm text-white" 
@@ -124,6 +128,10 @@
                                             <h4>[[#{accion.actualizar}]]</h4>
                                         </div>
                                         <div class="card-body">
+                                            <div class="mb-3">
+                                                <label for="idUsuario">[[#{cita.idUsuario}]]</label>
+                                                <input type="text" class="form-control" name="idUsuario" required=""/>
+                                            </div>
                                             <div class="mb-3">
                                                 <label for="fecha">[[#{cita.fecha}]]</label>
                                                 <input type="text" class="form-control" name="fecha" th:field="*{fecha}" required=""/>
