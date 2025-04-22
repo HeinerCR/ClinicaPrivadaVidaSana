@@ -8,7 +8,7 @@
         <section th:fragment="botonesAgregar" class="py-4 mb-4" style="background-color: #e6f7f9; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3 text-center">
+                    <div class="col-md-3 text-center">   
                         <button
                             type="button"
                             class="btn btn-block"
@@ -24,31 +24,19 @@
 
         <section th:fragment="agregarTratamiento">
             <div id="agregarTratamiento" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg"> 
-                    <div class="modal-content" style="border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-
-                        <div class="modal-header" style="background-color: #4CAF50; color: white; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                            <h5 class="modal-title"><i class="fas fa-notes-medical"></i> [[#{tratamiento.agregar}]]</h5>
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title">[[#{tratamiento.agregar}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <form th:action="@{/tratamientos/guardar}" th:object="${tratamientos}" 
+                        </div> 
+                        <form th:action="@{/tratamientos/guardar}" th:object="${tratamiento}" 
                               method="POST" class="was-validated" enctype="multipart/form-data">
-                            <div class="modal-body" style="background-color: #f9f9f9; padding: 20px;">
+                            <div class="modal-body" style="padding: 20px;">
                                 <div class="mb-3">
                                     <label for="idUsuario">[[#{tratamiento.idUsuario}]]</label>
                                     <input type="text" class="form-control" name="idUsuario" required=""/>
                                 </div>
-                                <div class="mb-4">
-                                    <label for="usuario" class="form-label">
-                                        <i class="fas fa-user"></i> [[#{tratamiento.usuario}]]
-                                    </label>
-                                    <select class="form-control" name="usuario" 
-                                            style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc;">
-                                        <option value="usuario">José</option>
-                                    </select>
-                                </div>
-
                                 <div class="mb-4">
                                     <label for="descripcion" class="form-label">
                                         <i class="fas fa-notes-medical"></i> [[#{tratamiento.descripcion}]]
@@ -56,7 +44,6 @@
                                     <textarea class="form-control" name="descripcion" rows="5" required=""
                                               style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc; resize: none;"></textarea>
                                 </div>
-
                                 <div class="mb-4">
                                     <label for="fecha_inicio" class="form-label">
                                         <i class="fas fa-calendar-alt"></i> [[#{tratamiento.fecha_inicio}]]
@@ -64,7 +51,6 @@
                                     <input type="datetime-local" class="form-control" name="fecha_inicio" required=""
                                            style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc;">
                                 </div>
-
                                 <div class="mb-4">
                                     <label for="fecha_fin" class="form-label">
                                         <i class="fas fa-calendar-alt"></i> [[#{tratamiento.fecha_fin}]]
@@ -73,23 +59,20 @@
                                            style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc;">
                                 </div>
                             </div>
-
-                            <div class="modal-footer" style="background-color: #f1f1f1; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
-                                <button class="btn btn-primary" type="submit" 
-                                        style="border-radius: 8px; background-color: #4CAF50; border: none;">
-                                    <i class="fas fa-save"></i> Guardar
-                                </button>
-                            </div>
-                        </form>
                     </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Guardar</button>
+                    </div>
+                    </form>
                 </div>
+            </div>
             </div>
         </section>
 
         <section th:fragment="listadoTratamientos" id="tratamientos">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-9" style="border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                    <div class="col-md-12">
                         <div class="card mb-4" style="border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
                             <div class="card-header text-center" style="background-color: #4CAF50; color: white; border-top-left-radius: 10px; border-top-right-radius: 10px;">
                                 <h4>[[#{tratamiento.listado}]]</h4>
@@ -108,9 +91,9 @@
                                 <tbody>
                                     <tr th:each="tratamiento, contador : ${tratamientos}" style="transition: background-color 0.3s; cursor: pointer;">
                                         <td>[[${contador.count}]]</td>
-                                        <th>[[${tratamiento.descripcion}]]</th>
-                                        <th>[[${tratamiento.fecha_inicio}]]</th>
-                                        <th>[[${tratamiento.fecha_fin}]]</th>
+                                        <td>[[${tratamiento.descripcion}]]</td>
+                                        <td>[[${tratamiento.fecha_inicio}]]</td>
+                                        <td>[[${tratamiento.fecha_fin}]]</td>
                                         <td>
                                             <a th:href="@{/tratamientos/eliminar/{id}(id=${tratamiento.idtratamiento})}" class="btn btn-danger btn-sm" 
                                                style="border-radius: 5px; padding: 5px 10px;">
@@ -125,19 +108,20 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="text-center p-3" th:if="${tratamientos == null or diagnosticos.empty}" style="background-color: #f9f9f9; border-radius: 10px;">
+                        <div class="text-center p-2" th:if="${tratamientos == null or tratamientos.empty}" style="background-color: #f9f9f9; border-radius: 10px;">
                             <span style="color: #6c757d;">[[#{lista.vacia}]]</span>
                         </div>
                     </div>
-                    <div class="floating-card" style="position: fixed; bottom: 20px; right: 20px; width: 250px; box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); border-radius: 15px; background-color: #ffffff; z-index: 1000;">
-                        <div class="card text-center border-primary">
-                            <div class="card-body">
-                                <h3>[[#{tratamiento.total}]]</h3>
-                                <h4 class="fs-2 text-primary"><i class="fas fa-users"></i> [[${totalTratamientos}]]</h4>
-                            </div>
+                </div>
+                <div class="floating-card" style="position: fixed; bottom: 20px; right: 20px; width: 250px; box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); border-radius: 15px; background-color: #ffffff; z-index: 1000;">
+                    <div class="card text-center border-primary">
+                        <div class="card-body">
+                            <h3>[[#{tratamiento.total}]]</h3>
+                            <h4 class="fs-2 text-primary"><i class="fas fa-users"></i> [[${totalTratamientos}]]</h4>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </section>
 
@@ -164,15 +148,13 @@
                                             <input type="text" class="form-control" name="descripcion" th:field="*{descripcion}" required=""/>
                                             </select>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="mb-3">
-                                                <label for="fecha_inicio">[[#{tratamiento.fecha_inicio}]]</label>
-                                                <input type="datetime-local" class="form-control" name="fecha_inicio" th:field="*{fecha_inicio}" required=""/>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="fecha_fin">[[#{tratamiento.fecha_fin}]]</label>
-                                                <input type="datetime-local" class="form-control" name="fecha_fin" th:field="*{fecha_fin}" required=""/>
-                                            </div>
+                                        <div class="mb-3">
+                                            <label for="fecha_inicio">[[#{tratamiento.fecha_inicio}]]</label>
+                                            <input type="datetime-local" class="form-control" name="fecha_inicio" th:field="*{fecha_inicio}" required=""/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="fecha_fin">[[#{tratamiento.fecha_fin}]]</label>
+                                            <input type="datetime-local" class="form-control" name="fecha_fin" th:field="*{fecha_fin}" required=""/>
                                         </div>
                                     </div>
                                 </div>

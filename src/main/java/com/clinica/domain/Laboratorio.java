@@ -4,6 +4,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Entity
