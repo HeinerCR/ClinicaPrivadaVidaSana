@@ -1,59 +1,56 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:replace="layout/plantilla :: head"></head>
     <body>
         <header th:replace="layout/plantilla :: header"></header>
 
         <div class="container text-center mt-5">
-            <!-- Título principal -->
             <h1 class="mb-3" style="font-size: 2.5rem; font-weight: bold; color: #0073e6;">
                 Bienvenido a la Clínica Vida Sana
             </h1>
 
-            <!-- Información general -->
             <p class="lead" style="font-size: 1.2rem; line-height: 1.8; color: #555;">
                 En nuestra clínica, brindamos atención médica de alta calidad con un equipo de profesionales dedicados a tu bienestar.
-                Ofrecemos una amplia gama de servicios médicos para garantizar tu salud y la de tu familia.
-            </p>
-            <p style="font-size: 1rem; color: #777;">
-                No dejes tu salud para después, agenda una cita con nuestros especialistas hoy mismo y recibe la mejor atención.
             </p>
 
-            <!-- Imagen y mensaje promocional -->
             <div class="mt-4">
                 <img th:src="@{/images/instalaciones.jpg}" class="img-fluid rounded shadow-lg" alt="Clínica Vida Sana" style="max-width: 600px; border-radius: 10px;">
-                <p class="mt-3" style="font-size: 1rem; color: #333;">Te animamos a que conozcas nuestras instalaciones.</p>
             </div>
 
-            <!-- Sección personalizada para el usuario -->
-            <div class="mt-5">
-                <h2 th:text="'Hola, ' + ${usuario.nombre} + '!'" style="color: #4CAF50;"></h2>
+           
+            <div sec:authorize="isAuthenticated()" class="mt-5">
+                <h2 sec:authentication="name" style="color: #4CAF50;"></h2>
 
-                <p th:if="${usuario.tipo == 'Administrador'}" style="font-size: 1rem; color: #555;">
-                    Eres Administrador. Tienes acceso a todos los datos de usuarios, tratamientos, diagnósticos y laboratorios.
-                </p>
-                <p th:unless="${usuario.tipo == 'Administrador'}" style="font-size: 1rem; color: #555;">
-                    Eres Cliente o Médico. Solo puedes gestionar tu información personal y tus citas.
-                </p>
-
-                <!-- Enlaces dinámicos según tipo de usuario -->
-                <div class="mt-4">
-                    <div th:if="${usuario.tipo == 'Administrador'}">
-                        <a th:href="@{/usuario/listado}" class="btn btn-primary mx-2" style="color: white;">Gestionar Usuarios</a>
-                        <a th:href="@{/tratamientos/listado}" class="btn btn-primary mx-2" style="color: white;">Gestionar Tratamientos</a>
-                        <a th:href="@{/diagnosticos/listado}" class="btn btn-primary mx-2" style="color: white;">Gestionar Diagnósticos</a>
-                        <a th:href="@{/laboratorios/listado}" class="btn btn-primary mx-2" style="color: white;">Gestionar Laboratorios</a>
+                <div sec:authorize="hasRole('ADMINISTRADOR')">
+                    <p style="font-size: 1rem; color: #555;">
+                        Eres Administrador. Tienes acceso completo al sistema.
+                    </p>
+                    <div class="mt-4">
+                        <a th:href="@{/usuario/listado}" class="btn btn-primary mx-2">Usuarios</a>
+                        <a th:href="@{/tratamientos/listado}" class="btn btn-primary mx-2">Tratamientos</a>
+                        <a th:href="@{/diagnosticos/listado}" class="btn btn-primary mx-2">Diagnósticos</a>
+                        <a th:href="@{/laboratorios/listado}" class="btn btn-primary mx-2">Laboratorios</a>
                     </div>
-                    <div th:unless="${usuario.tipo == 'Administrador'}">
-                        <a th:href="@{/usuario/mis-datos}" class="btn btn-success mx-2">Mis Datos</a>
-                        <a th:href="@{/tratamientos/mis-tratamientos}" class="btn btn-success mx-2">Mis Tratamientos</a>
+                </div>
+
+                <div sec:authorize="hasAnyRole('MEDICO', 'CLIENTE')">
+                    <p style="font-size: 1rem; color: #555;">
+                        <span sec:authorize="hasRole('MEDICO')">Eres Médico.</span>
+                        <span sec:authorize="hasRole('CLIENTE')">Eres Cliente.</span>
+                        Puedes gestionar tu información y citas.
+                    </p>
+                    <div class="mt-4">
+                        <a th:href="@{/citas/listado}" class="btn btn-success mx-2">Mis Citas</a>
                         <a th:href="@{/diagnosticos/mis-diagnosticos}" class="btn btn-success mx-2">Mis Diagnósticos</a>
-                        <a th:href="@{/laboratorios/mis-laboratorios}" class="btn btn-success mx-2">Mis Laboratorios</a>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Footer ya está en la plantilla, así que no se pone aquí -->
+            <div sec:authorize="isAnonymous()" class="mt-5">
+                <p>Para acceder a todas las funcionalidades, por favor <a th:href="@{/login}">inicia sesión</a>.</p>
+            </div>
+        </div>
     </body>
 </html>

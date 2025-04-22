@@ -29,6 +29,12 @@ public class Usuario {
     @Column(nullable = false, length = 20)
     private TipoUsuario tipo; // Tipo de usuario: Cliente, Médico o Administrador
 
+    @Column(nullable = true) // Puedes ajustar las restricciones según tus necesidades
+    private Integer edad; // Edad del usuario
+
+    @Column(nullable = true, length = 20, unique = true) // Ejemplo de restricciones para la cédula
+    private String cedula; // Cédula del usuario
+
     // Enumeración para definir los roles de usuario
     public enum TipoUsuario {
         Cliente,

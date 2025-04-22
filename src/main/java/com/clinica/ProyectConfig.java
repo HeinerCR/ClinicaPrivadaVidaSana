@@ -21,6 +21,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @Configuration
 public class ProyectConfig implements WebMvcConfigurer {
 
+    // Configuración de internacionalización (se mantiene igual)
     @Bean
     public LocaleResolver localeResolver() {
         var slr = new SessionLocaleResolver();
@@ -50,64 +51,80 @@ public class ProyectConfig implements WebMvcConfigurer {
         return messageSource;
     }
 
-  //@Override
-    //public void addViewControllers(ViewControllerRegistry registry) {
-    //  registry.addViewController("/").setViewName("index");
-    //registry.addViewController("/index").setViewName("index");
-  //      registry.addViewController("/Login").setViewName("login");
-    //    registry.addViewController("/registro/nuevo").setViewName("/registro/nuevo");
+    // Configuración de vistas
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/index").setViewName("index");
+        registry.addViewController("/login").setViewName("login/login"); // Ruta a tu template de login
+        registry.addViewController("/registrar").setViewName("registrar");
+        registry.addViewController("/acceso-denegado").setViewName("error/403");
+    }
 
-    //}
+    // Usuarios en memoria (actualizado para usar email como username)
+    @Bean
+    public UserDetailsService users() {
+        UserDetails admin = User.builder()
+                .username("admin@clinica.com") // Ahora usa un email como username
+                .password("{noop}admin123")
+                .roles("ADMINISTRADOR")
+                .build();
+                
+        UserDetails medico = User.builder()
+                .username("medico@clinica.com")
+                .password("{noop}medico123")
+                .roles("MEDICO")
+                .build();
+                
+        UserDetails cliente = User.builder()
+                .username("cliente@clinica.com")
+                .password("{noop}cliente123")
+                .roles("CLIENTE")
+                .build();
+                
+        return new InMemoryUserDetailsManager(admin, medico, cliente);
+    }
 
-    /* El siguiente método se utiliza para completar la clase no es 
-    realmente funcional, la próxima semana se reemplaza con usuarios de BD */
-  //  @Bean
-  //  public UserDetailsService users() {
-//        UserDetails admin = User.builder()
-  //              .username("juan")
-  //              .password("{noop}123")
-  //              .roles("Usuario", "Medico", "Administrador")
-  //              .build();
-  //      UserDetails sales = User.builder()
-  //              .username("rebeca")
-  //              .password("{noop}456")
-  //              .roles("Usuario", "Medico")
-  //              .build();
-  //      UserDetails user = User.builder()
-  //              .username("pedro")
-  //              .password("{noop}789")
-  //              .roles("Usuario")
-  //              .build();
-  //      return new InMemoryUserDetailsManager(user, sales, admin);
-  //  }
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeHttpRequests((request) -> request
-//                .requestMatchers("/", "/index", "/errores/**", "/error",
-//                        "/carrito/**", "/pruebas/**", "/reportes/**",
-//                        "/registro/**", "/js/**", "/webjars/**")
-//                .permitAll()
-//                .requestMatchers(
-//                        "/producto/nuevo", "/producto/guardar",
-//                        "/producto/modificar/**", "/producto/eliminar/**",
-//                        "/categoria/nuevo", "/categoria/guardar",
-//                        "/categoria/modificar/**", "/categoria/eliminar/**",
-//                        "/usuario/nuevo", "/usuario/guardar",
-//                        "/usuario/modificar/**", "/usuario/eliminar/**",
-//                        "/reportes/**"
-//                ).hasRole("Administrador")
-//                .requestMatchers(
-//                        "/producto/listado",
-//                        "/categoria/listado",
-//                        "/usuario/listado"
-//                ).hasAnyRole("Medico", "Admin")
-//                .requestMatchers("/facturar/carrito")
-//                .hasRole("Usuario")
-//                )
-//                .formLogin((form) -> form
-//                .loginPage("/login").permitAll())
-//                .logout((logout) -> logout.permitAll());
-//        return http.build();
-//    }
+    
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable()) 
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(
+                    "/", 
+                    "/index",
+                    "/css/**", 
+                    "/js/**", 
+                    "/images/**",
+                    "/webjars/**",
+                    "/registrar"
+                ).permitAll()
+                .requestMatchers("/error/**").permitAll()
+                .requestMatchers("/login").permitAll()
+                .requestMatchers("/usuario/**", "/laboratorios/**", "/tratamientos/**", "/citas/**").hasRole("ADMINISTRADOR")
+                .requestMatchers("/diagnosticos/**", "/citas/modifica/**").hasAnyRole("MEDICO", "ADMINISTRADOR")
+                .requestMatchers("/citas/listado", "/tratamientos/listado").hasRole("CLIENTE")
+                .requestMatchers("/citas/listado", "/diagnostics/listado").authenticated()
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login") 
+                .loginProcessingUrl("/login") 
+                .usernameParameter("correo") 
+                .passwordParameter("contrasena") 
+                .defaultSuccessUrl("/index", true)
+                .failureUrl("/login?error=true") 
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+            )
+            .exceptionHandling(ex -> ex
+                .accessDeniedPage("/error/403")
+            );
+            
+        return http.build();
+    }
 }
