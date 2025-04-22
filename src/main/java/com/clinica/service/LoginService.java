@@ -1,7 +1,7 @@
-package com.clinica.service;
+ //package com.clinica.service;
 
-import com.clinica.domain.Usuario;
+//import com.clinica.domain.Usuario;
 
-public interface LoginService {
-    Usuario login(String correo, String contrasena);
-}
+//public interface LoginService {
+//    Usuario login(String correo, String contrasena);
+//}
