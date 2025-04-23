@@ -1,36 +1,137 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="layout/plantilla :: head"></head>
-     <body>
-         <header th:replace="layout/plantilla :: header"></header>
- 
-         <div class="container text-center mt-5">
-             <!-- Título principal -->
-             <h1 class="mb-3" style="font-size: 2.5rem; font-weight: bold; color: #0073e6;">
-                 Bienvenido a la Clínica Vida Sana
-             </h1>
- 
-             <!-- Información general -->
-             <p class="lead" style="font-size: 1.2rem; line-height: 1.8; color: #555;">
-                 En nuestra clínica, brindamos atención médica de alta calidad con un equipo de profesionales dedicados a tu bienestar.
-                 Ofrecemos una amplia gama de servicios médicos para garantizar tu salud y la de tu familia.
-             </p>
-             <p style="font-size: 1rem; color: #777;">
-                 No dejes tu salud para después, agenda una cita con nuestros especialistas hoy mismo y recibe la mejor atención.
-             </p>
- 
-             <!-- Imagen y mensaje promocional -->
-             <div class="mt-4">
-                 <img th:src="@{/images/instalaciones.jpg}" class="img-fluid rounded shadow-lg" alt="Clínica Vida Sana" style="max-width: 600px; border-radius: 10px;">
-                 <p class="mt-3" style="font-size: 1rem; color: #333;">Te animamos a que conozcas nuestras instalaciones.</p>
-             </div>
+    <body class="bg-light">
+        <header th:replace="layout/plantilla :: header"></header>
 
-                 
-        <!-- Footer ya está en la plantilla, así que no se pone aquí -->
-             <div sec:authorize="isAnonymous()" class="mt-5">
-                 <p>Para acceder a todas las funcionalidades, por favor <a th:href="@{/login}">inicia sesión</a>.</p>
-             </div>
-         </div>
-     </body>
- </html>
- </html>
+        <div class="container-fluid px-0">
+         
+            <div class="hero-section bg-gradient-primary text-white py-5">
+                <div class="container py-5">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <h1 class="display-4 fw-bold mb-4">Clínica <span class="text-warning">Vida Sana</span></h1>
+                            <p class="lead mb-4">Cuidamos de ti con pasión y experiencia médica de primer nivel.</p>
+                            <div class="d-flex gap-3">
+                                <a href="#" class="btn btn-warning btn-lg px-4">Agendar cita</a>
+                                <a href="#" class="btn btn-outline-light btn-lg px-4">Servicios</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 d-none d-lg-block">
+                            <img th:src="@{/images/Equipomedico.jpg}" class="img-fluid rounded-3 shadow" alt="Instalaciones modernas">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="container py-5">
+                <h2 class="text-center mb-5 fw-bold">Nuestros <span class="text-primary">Servicios</span></h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-box bg-primary-light mb-4">
+                                    <i class="fas fa-heartbeat text-primary fs-2"></i>
+                                </div>
+                                <h4 class="mb-3">Cardiología</h4>
+                                <p class="text-muted">Evaluación y tratamiento especializado para tu corazón.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-box bg-primary-light mb-4">
+                                    <i class="fas fa-bone text-primary fs-2"></i>
+                                </div>
+                                <h4 class="mb-3">Ortopedia</h4>
+                                <p class="text-muted">Cuidado integral para tus huesos y articulaciones.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm hover-shadow">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-box bg-primary-light mb-4">
+                                    <i class="fas fa-brain text-primary fs-2"></i>
+                                </div>
+                                <h4 class="mb-3">Neurología</h4>
+                                <p class="text-muted">Atención especializada para tu sistema nervioso.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+         
+            <div class="bg-white py-5">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 mb-4 mb-lg-0">
+                            <img th:src="@{/images/instalaciones.jpg}" class="img-fluid rounded-3 shadow" alt="Instalaciones modernas">
+                        </div>
+                        <div class="col-lg-6">
+                            <h2 class="fw-bold mb-4">Instalaciones <span class="text-primary">de Vanguardia</span></h2>
+                            <p class="lead text-muted mb-4">Nuestro centro médico cuenta con tecnología de última generación y espacios diseñados para tu comodidad.</p>
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> Equipos médicos de última tecnología</li>
+                                <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> Ambiente limpio y seguro</li>
+                                <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> Accesibilidad para todos</li>
+                                <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i> Áreas de espera cómodas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+       
+            <div class="bg-primary text-white py-5">
+                <div class="container text-center py-4">
+                    <h2 class="fw-bold mb-4">¿Listo para cuidar de tu salud?</h2>
+                    <p class="lead mb-5">Nuestro equipo de especialistas está listo para atenderte.</p>
+                    <a href="#" class="btn btn-light btn-lg px-5 py-3 fw-bold">Contáctanos ahora</a>
+                </div>
+            </div>
+
+
+            <div sec:authorize="isAnonymous()" class="container text-center py-4">
+                <div class="alert alert-info">
+                    <p class="mb-0">Para acceder a todas las funcionalidades, por favor <a th:href="@{/login}" class="alert-link">inicia sesión</a>.</p>
+                </div>
+            </div>
+        </div>
+
+       
+        <style>
+            .hero-section {
+                background: linear-gradient(135deg, #0073e6 0%, #00a1ff 100%);
+            }
+            .icon-box {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .bg-primary-light {
+                background-color: rgba(0, 115, 230, 0.1);
+            }
+            .hover-shadow {
+                transition: all 0.3s ease;
+            }
+            .hover-shadow:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+            }
+            .bg-gradient-primary {
+                background: linear-gradient(135deg, #0073e6 0%, #00a1ff 100%);
+            }
+        </style>
+
+        <!-- Font Awesome para iconos -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </body>
+</html>
