@@ -39,7 +39,9 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="fecha">[[#{cita.fecha}]]</label>
-                                    <input type="text" class="form-control" name="fecha" required=""/>
+                                    <input type="datetime-local" class="form-control" name="fecha" required
+                                           min="2023-01-01T00:00" max="2030-12-31T23:59"/>
+                                    <small class="text-muted">Seleccione fecha y hora</small>
                                 </div>
                                 <div class="mb-3">
                                     <label for="estado">[[#{cita.estado}]]</label>
@@ -58,7 +60,6 @@
                 </div>
             </div>
         </section>
-
         <section th:fragment="listadoCitas" id="citas">
             <div class="container">
                 <div class="row">

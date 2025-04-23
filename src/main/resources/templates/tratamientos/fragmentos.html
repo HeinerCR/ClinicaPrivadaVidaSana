@@ -21,7 +21,6 @@
                 </div>
             </div>
         </section>
-
         <section th:fragment="agregarTratamiento">
             <div id="agregarTratamiento" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md">
@@ -59,13 +58,15 @@
                                            style="background-color: #ffffff; border-radius: 8px; border: 1px solid #ccc;">
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-save me-2"></i> Guardar
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit">Guardar</button>
-                    </div>
-                    </form>
                 </div>
-            </div>
             </div>
         </section>
 
